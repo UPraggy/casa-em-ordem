@@ -1,6 +1,6 @@
 # Guia do Casa em Ordem
 
-Este guia descreve o comportamento que está implementado hoje. A interface pode ser usada em computador e celular; no celular a navegação fica fixa no rodapé quando a largura é de até 720 px.
+Este guia descreve o comportamento atual. No celular e tablet portrait, a barra inferior aparece até 820 px; o menu “Mais” reúne Minha casa e Primeiros socorros.
 
 ## Começar
 
@@ -26,7 +26,7 @@ O aplicativo guarda o estado no próprio navegador. Uma publicação não substi
 
 “Novo item” permite preencher nome, grupo, preço unitário, quantidade, estoque mínimo, validade opcional e foto. A busca aceita nome, grupo e data mostrada. Os filtros exibem todos os itens, estoque baixo ou validade próxima. Cada cartão permite editar ou excluir o registro.
 
-O indicador de estoque baixo considera quantidade menor ou igual ao mínimo, inclusive quantidade zero. Os alertas de validade consideram datas até 30 dias à frente; atualmente a contagem usa uma data-base fixa e também inclui datas já vencidas. Consulte as limitações de data abaixo antes de confiar no aviso.
+O indicador de estoque baixo considera quantidade menor ou igual ao mínimo, inclusive zero. Alertas de validade contam até 30 dias a partir da data local do aparelho e incluem itens já vencidos; confira a validade cadastrada antes de se basear no aviso.
 
 As fotos enviadas ficam no armazenamento local do navegador. Não são carregadas para um servidor nem compartilhadas automaticamente com outros usuários.
 
@@ -34,11 +34,11 @@ As fotos enviadas ficam no armazenamento local do navegador. Não são carregada
 
 O orçamento inicial é R$ 1.500,00 e pode ser alterado pelo botão “Ajustar orçamento”. “Lançar gasto” registra nome e valor usando caixas de diálogo do navegador. A tela mostra totais por categoria e lançamentos armazenados localmente.
 
-Ao concluir uma compra, o sistema cria um lançamento agregado chamado “Compra da casa”, atribuído à categoria Supermercado. A data exibida nos lançamentos e no cabeçalho da lista está fixa em 09 nov 2026; não acompanha automaticamente o dia atual.
+Ao concluir uma compra, o sistema cria um lançamento agregado chamado “Compra da casa”, atribuído à categoria Supermercado. Novos lançamentos usam a data local atual; registros já salvos preservam a data original.
 
 ## Minha casa e grupos
 
-A tela lista grupos predefinidos: Sacola, Supermercado, Açougue e Primeiros socorros. O formulário de produto também oferece Limpeza e Outro. O botão “Novo grupo” ainda só mostra uma mensagem; não cria um grupo personalizado nem adiciona opções ao formulário.
+A tela lista grupos predefinidos: Sacola, Supermercado, Açougue e Primeiros socorros. Toque em um cartão para abrir o estoque filtrado por aquele grupo.
 
 ## Primeiros socorros
 
