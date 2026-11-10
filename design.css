@@ -333,6 +333,8 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .qty button:hover { border-color: #b9cfb8; background: #edf4e9; }
 .qty button .icon { width: 16px; height: 16px; }
+.qty .shop-remove { width: 32px; height: 32px; flex: 0 0 auto; border-color: #eddcd5; background: #fbf3ef; color: #9d604e; }
+.qty .shop-remove:hover { border-color: #dfc0b2; background: #f8eae3; }
 .qty > span { min-width: 18px; text-align: center; color: #4c6355; font-size: 11px; font-weight: 700; }
 .total-panel { border-color: #dce6d9; background: #eef3e9; }
 .total-top { color: #4b6854; font-weight: 650; }
@@ -376,6 +378,7 @@ button { -webkit-tap-highlight-color: transparent; }
   font-weight: 650;
 }
 .inventory-actions button .icon { width: 14px; height: 14px; }
+.inventory-actions .list-toggle.in-list { border-color: #d4e4d1; background: #edf4e9; color: #315e47; }
 .inventory-actions button:last-child { color: #a25c4f; }
 .inventory-actions button:last-child:hover { border-color: #ecd4ca; background: #fbefeb; }
 
@@ -594,6 +597,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
   .shop-emoji { width: 31px; height: 31px; flex: 0 0 auto; font-size: 16px; }
   .qty { flex: 0 0 auto; gap: 3px; }
   .qty button { width: 40px; height: 40px; border-radius: 12px; }
+  .qty .shop-remove { width: 34px; height: 34px; }
   .qty > span { min-width: 14px; font-size: 10px; }
   .total-panel { order: -1; }
   .total-top { font-size: 11px; }
@@ -618,6 +622,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
   .inventory-actions { gap: 5px; margin-top: 8px; }
   .inventory-actions button { min-width: 0; min-height: 42px; flex: 1; gap: 4px; padding-inline: 4px; font-size: 9px; }
   .inventory-actions button .icon { width: 13px; height: 13px; }
+  .inventory-actions .list-toggle span { display: none; }
   .budget-hero { align-items: center; gap: 10px; padding: 17px; }
   .budget-hero h2 { margin: 7px 0 12px; font-size: 18px; }
   .budget-hero > div:first-child > strong { font-size: 27px; }
@@ -659,6 +664,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
   .shop-item { gap: 5px; }
   .shop-emoji { width: 28px; height: 28px; }
   .qty button { width: 36px; height: 40px; }
+  .qty .shop-remove { width: 30px; height: 32px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

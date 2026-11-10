@@ -12,19 +12,20 @@ O aplicativo guarda o estado no próprio navegador. Uma publicação não substi
 
 ## Lista de compras
 
-- A lista mostra produtos cuja quantidade atual é exatamente zero.
+- A lista começa vazia e mostra apenas os itens que você escolheu adicionar. Um alerta de estoque baixo nunca inclui um produto automaticamente.
+- Para adicionar, use “Adicionar” na lista e escolha um item existente pelo nome ou cadastre um novo. Também é possível usar “Comprar” no cartão do item, dentro do estoque.
 - A busca filtra os nomes e os botões de grupo filtram Sacola, Supermercado ou Açougue. “Todos” inclui os demais grupos.
 - Toque/clique na linha para marcar ou desmarcar o item. A caixa também pode ser marcada diretamente.
-- “Adicionar” abre o formulário para criar um produto.
+- Os botões `+` e `−` mudam a quantidade que você pretende comprar. O `×` remove o item da lista sem apagar do estoque.
 - “Compartilhar” usa o menu de compartilhamento do aparelho ou copia o texto da lista para a área de transferência.
-- “Exportar lista” baixa `lista-de-compras.csv`, com grupo, item, quantidade mínima e preço.
-- “Concluir compra” exige ao menos um item marcado; então coloca a quantidade mínima no estoque e cria um lançamento agregado de gasto.
+- “Exportar lista” baixa `lista-de-compras.csv`, com grupo, item, quantidade escolhida e preço.
+- “Concluir compra” exige ao menos um item marcado; soma a quantidade escolhida ao estoque e cria um lançamento agregado de gasto.
 
-**Atenção aos cálculos atuais:** o valor estimado soma todos os produtos listados, não apenas os marcados. O contador chamado “itens selecionados” também reflete todos os itens exibidos. Os botões `+` e `−` mudam a quantidade em estoque, e não uma quantidade separada para comprar. Um produto com estoque positivo, mesmo abaixo do mínimo, aparece no alerta de estoque baixo, mas não entra na lista automaticamente.
+O valor estimado soma os itens da lista. O estoque baixo continua sendo acompanhado na tela de Estoque e nos avisos da Visão geral, separado da sua lista de compras.
 
 ## Estoque e produtos
 
-“Novo item” permite preencher nome, grupo, preço unitário, quantidade, estoque mínimo, validade opcional e foto. A busca aceita nome, grupo e data mostrada. Os filtros exibem todos os itens, estoque baixo ou validade próxima. Cada cartão permite editar ou excluir o registro.
+“Novo item” permite preencher nome, grupo, preço unitário, quantidade, estoque mínimo, validade opcional e foto. A busca aceita nome, grupo e data mostrada. Os filtros exibem todos os itens, estoque baixo ou validade próxima. Cada cartão permite editar, excluir ou adicionar/remover o item da lista de compras.
 
 O indicador de estoque baixo considera quantidade menor ou igual ao mínimo, inclusive zero. Alertas de validade contam até 30 dias a partir da data local do aparelho e incluem itens já vencidos; confira a validade cadastrada antes de se basear no aviso.
 

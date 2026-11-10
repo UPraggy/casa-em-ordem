@@ -24,7 +24,7 @@ O endpoint público da API do GitHub para consultar as configurações de Pages 
 1. **Não era uma reformulação visual ampla.** Os commits recentes focaram em inicialização do catálogo, interações da lista e correções para celular. Em computador, a estrutura e a identidade visual principais continuam parecidas.
 2. **A mudança mais perceptível é mobile-first.** A barra inferior agora usa cinco atalhos e “Mais” reúne as outras seções; ela aparece em telas de até 820 px. Em desktop, a navegação continua na lateral.
 3. **Os dados são locais por navegador.** A publicação do código não apaga nem substitui automaticamente um estado já salvo em `localStorage`. Quantidades e gastos antigos podem continuar aparecendo no mesmo aparelho; um navegador novo começa com o catálogo de estoque zero.
-4. **Há interações com comportamento incompleto.** O total da lista inclui itens desmarcados; `+`/`−` altera estoque; quantidade positiva abaixo do mínimo não aparece na lista. O botão de grupos personalizados ainda não cria grupos. Esses pontos podem fazer a tela parecer pouco interativa ou diferente do esperado.
+4. **A lista e o estoque têm funções separadas.** A lista agora contém somente os produtos escolhidos manualmente; alertas de estoque baixo continuam na Visão geral/Estoque e não alteram a lista. Os controles de quantidade ajustam o que será comprado, e concluir a compra atualiza o estoque. O botão de grupos personalizados ainda não cria grupos.
 5. **Os preços continuam estáticos.** São referências em código, sem cotação atualizada por loja/região; alertas de validade e datas novas acompanham a data local do aparelho.
 
 ## Como comparar a versão publicada

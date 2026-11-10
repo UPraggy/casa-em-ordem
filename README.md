@@ -14,9 +14,9 @@ Depois acesse `http://127.0.0.1:4173`. Também é possível abrir `index.html` d
 
 ## Seções
 
-- **Visão geral:** resumo de itens para comprar, estoque baixo, validades próximas e gastos registrados.
-- **Lista de compras:** itens sem estoque, busca, filtro por grupo, seleção, estimativa de valor, compartilhamento e exportação CSV.
-- **Estoque:** busca por nome/grupo/validade, filtros de estoque baixo e validade, edição, exclusão e cadastro de foto, preço, quantidade, mínimo e validade.
+- **Visão geral:** resumo da lista escolhida, itens com estoque baixo, validades próximas e gastos registrados.
+- **Lista de compras:** somente itens adicionados manualmente, com busca, filtros, quantidades para comprar, total, compartilhamento e exportação CSV.
+- **Estoque:** avisos de quantidade abaixo do mínimo, busca, filtros, edição, exclusão e cadastro de foto, preço, quantidade e validade; cada item pode ser adicionado à lista sem alterar o estoque.
 - **Orçamento:** limite mensal, lançamentos manuais e totais agrupados por categoria.
 - **Minha casa:** visão dos grupos de produtos atualmente definidos.
 - **Primeiros socorros:** checklist doméstico inicial, com possibilidade de adicionar itens.
@@ -59,9 +59,9 @@ O estado da publicação e o motivo de as mudanças recentes parecerem discretas
 
 - Os dados não sincronizam entre dispositivos e não há login/compartilhamento de estoque doméstico.
 - O botão para criar grupos personalizados ainda não cria grupos.
-- A lista considera para compra apenas produtos com quantidade exatamente zero; não inclui automaticamente produtos positivos abaixo do mínimo.
-- O total estimado da lista é calculado para todos os itens exibidos, mesmo os desmarcados.
-- Os controles `+` e `−` da lista alteram o estoque atual; não alteram uma quantidade de compra separada.
+- A lista começa vazia e só recebe itens que você escolher. Os alertas de estoque baixo não adicionam produtos à lista.
+- O total estimado soma todos os itens da lista; marcar a caixa indica quais itens serão baixados ao concluir a compra.
+- Os controles `+` e `−` alteram a quantidade a comprar; concluir a compra soma essa quantidade ao estoque atual.
 - Alertas são indicadores dentro da página, sem notificações do navegador ou push.
 - Os preços são referências estáticas e não vêm de uma cotação em tempo real. Não há integração com OpenRouter ou outra IA.
 
