@@ -4,7 +4,7 @@ const seed = [
 ].map((x,i)=>({id:'seed-'+i,name:x[0],group:x[1],price:x[2],qty:0,min:x[4],expiry:x[5],emoji:x[6],photo:null,created:i}));
 const marketPrices={'Cebola':1.99,'Alho':3.74,'Batata':1.99,'Tomate':2.39,'Cenoura':1.24,'Banana':6.54,'Maçã':1.19,'Limão':6.99,'Arroz':20.99,'Feijão':7.99,'Farinha de trigo':3.49,'Papel higiênico':29.90,'Peito de frango':9.29,'Acém':35.90,'Linguiça toscana':22.89,'Café':24.99,'Açúcar':5.39};seed.forEach(i=>{if(marketPrices[i.name])i.price=marketPrices[i.name]});if(state.items){state.items.forEach(i=>{if(marketPrices[i.name])i.price=marketPrices[i.name]})}
 const aidSeed=[['Curativos','🩹','Caixa variada'],['Gaze estéril','▦','Pacote fechado'],['Antisséptico','🧴','Para limpeza'],['Termômetro','🌡','Digital'],['Soro fisiológico','💧','Frasco 500 ml'],['Luvas descartáveis','🧤','Par de luvas'],['Tesoura sem ponta','✂','Pequena'],['Analgésico','💊','Uso conforme orientação'],['Compressa fria','❄','Reutilizável']];
-let state=JSON.parse(localStorage.getItem('casa-em-ordem')||'null')||{items:seed,expenses:[],budget:1500,aid:aidSeed.map((x,i)=>({id:'aid-'+i,name:x[0],emoji:x[1],note:x[2],checked:false}))};
+const freshState=()=>({version:2,items:seed.map(i=>({...i,qty:0})),expenses:[],budget:1500,aid:aidSeed.map((x,i)=>({id:'aid-'+i,name:x[0],emoji:x[1],note:x[2],checked:false}))});let state=JSON.parse(localStorage.getItem('casa-em-ordem')||'null')||freshState();if(!state.version||!state.items||state.items.length<10)state=freshState();
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n||0);
 const save=()=>{localStorage.setItem('casa-em-ordem',JSON.stringify(state));renderAll()};
