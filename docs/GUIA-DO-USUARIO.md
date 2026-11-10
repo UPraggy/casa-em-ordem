@@ -23,6 +23,17 @@ O aplicativo guarda o estado no próprio navegador. Uma publicação não substi
 
 O valor estimado soma os itens da lista. O estoque baixo continua sendo acompanhado na tela de Estoque e nos avisos da Visão geral, separado da sua lista de compras.
 
+## Assistente IA (OpenRouter)
+
+1. Toque no botão flutuante **Assistente IA**. No celular, ele fica acima do menu inferior.
+2. Na primeira vez, abra as configurações (engrenagem), crie/consulte uma chave em [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys), cole-a e salve. A chave é exigida pela API; não está embutida no site.
+3. Escreva pedidos como “adicione 2 detergentes à lista”, “tire arroz da lista”, “atualize o estoque de leite para 3” ou “quanto tenho no orçamento?”.
+4. Quando o pedido alterar dados, confira o resumo e toque em **Aplicar mudanças**. **Descartar** não altera seus dados. Para consultar sem alterar, faça uma pergunta normal.
+
+O assistente pode adicionar/remover itens e ajustar quantidades da lista, atualizar estoque, validade e mínimo, registrar gastos, definir orçamento e manter o checklist de primeiros socorros. Estoque baixo continua sendo somente aviso. A IA nunca grava as mudanças sem você aprová-las; exclusões também exigem essa aprovação.
+
+A chave fica no armazenamento local deste navegador. O pedido e somente os dados da casa necessários à resposta são enviados diretamente ao OpenRouter: preços e totais financeiros quando a pergunta tratar de valores, validade quando solicitada e checklist quando pertinente. Fotos e nomes individuais dos lançamentos não são enviados. Não configure a chave em dispositivo compartilhado. Cada aparelho ou navegador precisa da própria chave. O modelo padrão é o roteador gratuito `openrouter/free`; disponibilidade e limites são administrados pelo OpenRouter.
+
 ## Estoque e produtos
 
 “Novo item” permite preencher nome, grupo, preço unitário, quantidade, estoque mínimo, validade opcional e foto. A busca aceita nome, grupo e data mostrada. Os filtros exibem todos os itens, estoque baixo ou validade próxima. Cada cartão permite editar, excluir ou adicionar/remover o item da lista de compras.
@@ -64,9 +75,7 @@ Os valores iniciais são referências estáticas sem atualização de loja, regi
 ## Recursos ainda não implementados
 
 - Grupos personalizados funcionais.
-- Quantidade de compra independente do estoque.
-- Total calculado apenas sobre itens marcados.
 - Notificações fora da página (push ou notificações do sistema).
 - Datas e histórico financeiro dinâmicos.
 - Pesquisa de preços atualizada automaticamente.
-- Sincronização entre pessoas/dispositivos e integração de IA/OpenRouter.
+- Sincronização entre pessoas/dispositivos.

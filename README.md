@@ -20,6 +20,7 @@ Depois acesse `http://127.0.0.1:4173`. Também é possível abrir `index.html` d
 - **Orçamento:** limite mensal, lançamentos manuais e totais agrupados por categoria.
 - **Minha casa:** visão dos grupos de produtos atualmente definidos.
 - **Primeiros socorros:** checklist doméstico inicial, com possibilidade de adicionar itens.
+- **Assistente IA:** conversa em português para consultar e propor alterações na lista, estoque, orçamento, gastos e checklist. As alterações aparecem para revisão antes de salvar.
 
 O catálogo inicial contém **41 registros de produtos**, todos com quantidade inicial zero em um navegador sem dados salvos. Há também **9 itens** no checklist inicial de primeiros socorros. Os grupos pré-configurados incluem Sacola, Supermercado, Açougue e Primeiros socorros; o formulário de produto também oferece Limpeza e Outro.
 
@@ -28,6 +29,8 @@ O catálogo inicial contém **41 registros de produtos**, todos com quantidade i
 O estado do aplicativo é salvo no `localStorage` do navegador, na chave `casa-em-ordem`. Não há conta, banco de dados, API de sincronização ou cópia automática entre celulares e computadores. Cada navegador/dispositivo mantém os próprios dados.
 
 O catálogo padrão com quantidade zero só aparece quando não existe estado salvo. Dados antigos do navegador podem continuar preenchendo o app após a publicação de uma versão nova. Fotos enviadas são gravadas como dados locais no navegador; muitas fotos ou arquivos grandes podem atingir o limite de armazenamento do navegador.
+
+O assistente envia o pedido e somente os campos da casa necessários à resposta para o OpenRouter: dados de estoque/lista nos pedidos sobre produtos, preços e totais financeiros quando a pergunta tratar de valores, validade quando solicitada e checklist quando pertinente. Não envia fotos nem nomes individuais dos lançamentos financeiros. A chave da API fica no `localStorage` deste navegador, separada dos dados da casa; cada aparelho/navegador precisa configurar a própria chave. Não coloque a chave no repositório nem use em aparelho compartilhado.
 
 Compartilhar usa o recurso nativo do dispositivo quando disponível e, caso contrário, tenta copiar o texto da lista. A exportação disponível é CSV da lista de compras; não existe exportação/restauração completa do estoque, orçamento e fotos.
 
@@ -63,7 +66,8 @@ O estado da publicação e o motivo de as mudanças recentes parecerem discretas
 - O total estimado soma todos os itens da lista; marcar a caixa indica quais itens serão baixados ao concluir a compra.
 - Os controles `+` e `−` alteram a quantidade a comprar; concluir a compra soma essa quantidade ao estoque atual.
 - Alertas são indicadores dentro da página, sem notificações do navegador ou push.
-- Os preços são referências estáticas e não vêm de uma cotação em tempo real. Não há integração com OpenRouter ou outra IA.
+- Os preços são referências estáticas e não vêm de uma cotação em tempo real.
+- O assistente usa `openrouter/free` e requer uma chave OpenRouter configurada no navegador. A disponibilidade e os limites do modelo gratuito dependem do OpenRouter.
 
 ## Estrutura
 
@@ -74,6 +78,7 @@ O estado da publicação e o motivo de as mudanças recentes parecerem discretas
 | `mobile.css` | Regras responsivas e barra inferior |
 | `app.js` | Catálogo, estado local, cálculos e interações |
 | `design.css` | Sistema visual, componentes e ajustes tablet/celular |
+| `assistant.js` / `assistant.css` | Assistente OpenRouter, revisão de ações e interface responsiva |
 | `assets/` | Pranchas de imagens do catálogo |
 | `CNAME` | Domínio usado pelo GitHub Pages |
 | `.nojekyll` | Desativa processamento Jekyll |

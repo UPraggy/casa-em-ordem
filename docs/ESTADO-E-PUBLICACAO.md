@@ -35,6 +35,10 @@ O endpoint público da API do GitHub para consultar as configurações de Pages 
 
 Uma janela privada serve apenas para visualizar o estado inicial daquele contexto; os dados nela podem desaparecer quando a janela for fechada.
 
+## Assistente OpenRouter
+
+O assistente está integrado ao site estático por chamada do navegador para a API de Chat Completions do OpenRouter, usando o modelo roteador gratuito `openrouter/free`. A chave é fornecida pelo usuário na interface e guardada no `localStorage` do navegador, nunca no Git. As propostas estruturadas são validadas pelo site e só alteram os dados locais depois de **Aplicar mudanças**. A chamada envia somente os campos pertinentes ao pedido; não envia fotos nem lançamentos financeiros individuais. Cada navegador precisa de sua própria chave; não existe proxy Cloudflare nem chave compartilhada no servidor.
+
 ## Reformulação de interface
 
 A interface agora usa ícones SVG Lucide inline, paleta creme/verde/terracota, cartões e foco refinados, barra inferior com cinco destinos e menu “Mais”, rótulos e datas dinâmicos, grupos que abrem o estoque filtrado e progresso de limpeza ligado aos itens cadastrados. A inspeção visual usou o screenshot runner do Taste em 320, 390, 768 e 1440 px. O `check.mjs` do Taste exige um contêiner `.wrap` e interrompeu a segunda largura; por isso a conferência responsiva foi feita pelas capturas reais de cada tamanho.

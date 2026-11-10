@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="mobile.css" />
   <link rel="stylesheet" href="design.css" />
+  <link rel="stylesheet" href="assistant.css" />
 </head>
 <body>
 <!-- Lucide icons, ISC license: https://github.com/lucide-icons/lucide -->
@@ -178,8 +179,44 @@
     </main>
   </div>
 
+  <button class="ai-launcher" id="ai-launcher" type="button" aria-label="Abrir assistente da casa" aria-expanded="false" aria-controls="ai-panel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/><path d="m19 14 .9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14Z"/></svg>
+    <span>Assistente IA</span>
+  </button>
+  <section class="ai-panel" id="ai-panel" role="dialog" aria-label="Assistente da Casa em Ordem" hidden>
+    <header class="ai-header">
+      <span class="ai-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/><path d="m19 14 .9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14Z"/></svg></span>
+      <div class="ai-heading-copy"><strong>Casa em Ordem</strong><small id="ai-connection-state">Assistente com OpenRouter</small></div>
+      <button class="ai-icon-button" id="ai-settings-toggle" type="button" aria-label="Configurar OpenRouter" title="Configurar OpenRouter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 1 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.3a1.7 1.7 0 1 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9h-.3a1.7 1.7 0 1 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2v-.3a1.7 1.7 0 1 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.3a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg></button>
+      <button class="ai-icon-button" id="ai-close" type="button" aria-label="Fechar assistente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m18 6-12 12M6 6l12 12"/></svg></button>
+    </header>
+    <form class="ai-settings" id="ai-settings" hidden>
+      <div class="ai-settings-title"><strong>Conectar ao OpenRouter</strong><span>Use sua chave de API gratuita.</span></div>
+      <label for="ai-api-key">Chave de API</label>
+      <input id="ai-api-key" type="password" autocomplete="off" spellcheck="false" placeholder="sk-or-v1-…" />
+      <p class="ai-privacy">A chave fica neste navegador. Seu pedido e apenas os dados da casa necessários para responder são enviados ao OpenRouter. Não use em aparelho compartilhado.</p>
+      <div class="ai-settings-actions"><a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener noreferrer">Criar ou consultar chave ↗</a><button class="ai-save-key" type="submit">Salvar chave</button></div>
+      <button class="ai-remove-key" id="ai-remove-key" type="button" hidden>Apagar chave salva neste navegador</button>
+      <p class="ai-settings-status" id="ai-settings-status" role="status"></p>
+    </form>
+    <div class="ai-thread" id="ai-thread" role="log" aria-live="polite" aria-relevant="additions text">
+      <div class="ai-message assistant"><span class="ai-message-label">Assistente</span><p>Oi! Posso montar sua lista, ajustar quantidades, atualizar estoque e consultar os cuidados da casa. O estoque baixo continua só como aviso.</p></div>
+    </div>
+    <div class="ai-suggestions" id="ai-suggestions" aria-label="Sugestões">
+      <button type="button" data-ai-prompt="Adicione banana e leite à minha lista de compras">Adicionar itens</button>
+      <button type="button" data-ai-prompt="O que está com estoque baixo e perto de vencer?">Ver alertas</button>
+      <button type="button" data-ai-prompt="Quantos itens tenho na lista de compras?">Resumo da lista</button>
+    </div>
+    <div class="ai-privacy-strip"><span>Reveja as alterações antes de aplicar.</span><button id="ai-configure-link" type="button">Configurar chave</button></div>
+    <form class="ai-composer" id="ai-form">
+      <textarea id="ai-prompt" rows="1" maxlength="1200" placeholder="Ex.: coloque 2 detergentes na lista" aria-label="Mensagem para o assistente" disabled></textarea>
+      <button id="ai-send" type="submit" aria-label="Enviar mensagem" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></button>
+    </form>
+  </section>
+
   <div class="modal-backdrop" id="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><button class="modal-close" id="modal-close" aria-label="Fechar"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg></button><p class="eyebrow" id="modal-eyebrow">NOVO ITEM</p><h2 id="modal-title">Adicionar ao estoque</h2><p class="muted" id="modal-subtitle">Preencha só o essencial. Você pode completar depois.</p><form id="item-form"><div class="form-grid"><label class="photo-drop"><input type="file" id="item-photo" accept="image/*" /><span id="photo-preview"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg><small>Adicionar foto</small></span></label><div class="form-fields"><label>Nome do item<input required id="item-name" list="existing-item-names" placeholder="Ex.: Leite integral" /><datalist id="existing-item-names"></datalist></label><label>Grupo<select id="item-group"><option>Sacola</option><option>Supermercado</option><option>Açougue</option><option>Limpeza</option><option>Primeiros socorros</option><option>Outro</option></select></label></div></div><div class="form-grid three"><label>Preço unitário<input id="item-price" type="number" min="0" step="0.01" placeholder="0,00" /></label><label><span id="item-qty-label">Quantidade em estoque</span><input id="item-qty" type="number" min="0" step="1" value="1" /></label><label>Estoque mínimo<input id="item-min" type="number" min="0" step="1" value="1" /></label></div><label>Data de validade <span class="optional">(opcional)</span><input id="item-expiry" type="date" /></label><div class="modal-actions"><button type="button" class="outline-btn" id="modal-cancel">Cancelar</button><button class="primary" type="submit">Salvar item</button></div></form></div></div>
   <div class="toast" id="toast"></div>
   <script src="app.js"></script>
+  <script src="assistant.js"></script>
 </body>
 </html>
