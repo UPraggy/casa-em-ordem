@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa em Ordem</title>
+  <meta name="description" content="Compras, estoque, orçamento e cuidados da casa em um só lugar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">⌂</div><div><strong>Casa em<br>Ordem</strong><span>seu cantinho, leve</span></div></div>
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav-item active" data-view="inicio"><span>✦</span> Visão geral</button>
+        <button class="nav-item" data-view="compras"><span>🛒</span> Lista de compras <b id="nav-cart-count">0</b></button>
+        <button class="nav-item" data-view="estoque"><span>▦</span> Estoque</button>
+        <button class="nav-item" data-view="orcamento"><span>◌</span> Orçamento</button>
+        <button class="nav-item" data-view="casa"><span>⌂</span> Minha casa</button>
+        <button class="nav-item" data-view="socorros"><span>＋</span> Primeiros socorros</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="tip-card"><span>☼</span><div><strong>Casa tranquila</strong><p>Pequenos cuidados, todos os dias.</p></div></div><button class="settings">⚙ Configurações</button></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div class="mobile-brand"><div class="brand-mark">⌂</div><strong>Casa em Ordem</strong></div><div class="top-actions"><button class="icon-btn" id="notify-btn" title="Alertas">♧<i id="alert-dot"></i></button><button class="avatar">RA</button></div></header>
+
+      <section id="view-inicio" class="view active-view">
+        <div class="welcome"><div><p class="eyebrow">SEGUNDA, 09 DE NOVEMBRO</p><h1>Olá, Rafa. <em>Vamos deixar tudo em ordem?</em></h1><p class="muted">Uma visão simples do que merece sua atenção hoje.</p></div><button class="primary" id="quick-add">＋ Adicionar item</button></div>
+        <div class="summary-grid"><article class="summary-card blue"><span class="card-icon">🛒</span><div><p>Para comprar</p><strong id="summary-buy">0 itens</strong><small id="summary-buy-value">R$ 0,00 estimados</small></div><button class="card-arrow" data-view="compras">→</button></article><article class="summary-card peach"><span class="card-icon">◉</span><div><p>Estoque baixo</p><strong id="summary-low">0 itens</strong><small>precisam de atenção</small></div><button class="card-arrow" data-view="estoque">→</button></article><article class="summary-card mint"><span class="card-icon">⌛</span><div><p>Vencendo em breve</p><strong id="summary-expiry">0 itens</strong><small>nos próximos 30 dias</small></div><button class="card-arrow" data-view="estoque">→</button></article><article class="summary-card cream"><span class="card-icon">◌</span><div><p>Gasto este mês</p><strong id="summary-spent">R$ 0,00</strong><small>de <span id="summary-budget">R$ 1.500,00</span> planejados</small></div><button class="card-arrow" data-view="orcamento">→</button></article></div>
+        <div class="content-grid"><section class="panel focus-panel"><div class="panel-head"><div><p class="eyebrow">ATENÇÃO</p><h2>O que precisa de você</h2></div><button class="text-btn" data-view="estoque">Ver estoque →</button></div><div id="attention-list" class="attention-list"></div></section><section class="panel progress-panel"><div class="panel-head"><div><p class="eyebrow">ORGANIZAÇÃO</p><h2>Minha casa hoje</h2></div><span class="progress-label" id="progress-label">0%</span></div><div class="progress-bar"><i id="progress-bar"></i></div><p class="muted small">Itens essenciais em dia</p><div class="room-list"><div><span>🍅</span><strong>Cozinha</strong><b id="room-kitchen">0%</b></div><div><span>🧼</span><strong>Limpeza</strong><b id="room-cleaning">0%</b></div><div><span>🩹</span><strong>Cuidados</strong><b id="room-care">0%</b></div></div></section></div>
+        <section class="panel recent-panel"><div class="panel-head"><div><p class="eyebrow">SEU ESTOQUE</p><h2>Itens adicionados recentemente</h2></div><button class="outline-btn" data-view="estoque">Ver todos</button></div><div id="recent-items" class="item-row-grid"></div></section>
+      </section>
+
+      <section id="view-compras" class="view"><div class="page-heading"><div><p class="eyebrow">PLANEJE MELHOR</p><h1>Lista de compras</h1><p class="muted">Tudo o que falta, organizado por grupo.</p></div><div class="heading-actions"><button class="outline-btn" id="export-list">↓ Exportar lista</button><button class="primary" id="add-shopping">＋ Adicionar</button></div></div><div class="shopping-layout"><section class="panel shopping-panel"><div class="toolbar"><div class="search"><span>⌕</span><input id="shopping-search" placeholder="Pesquisar na lista..." /></div><div class="filters" id="shopping-filters"><button class="filter active" data-filter="Todos">Todos</button><button class="filter" data-filter="Sacola">Sacola</button><button class="filter" data-filter="Supermercado">Supermercado</button><button class="filter" data-filter="Açougue">Açougue</button></div></div><div id="shopping-list"></div></section><aside class="panel total-panel"><div class="total-top"><span>Resumo da compra</span><span class="muted">09 nov 2026</span></div><div class="total-main"><p>Valor estimado</p><strong id="cart-total">R$ 0,00</strong><small id="cart-count">0 itens selecionados</small></div><div class="total-lines"><div><span>Itens marcados</span><b id="marked-count">0</b></div><div><span>Itens no estoque</span><b id="stock-count">0</b></div></div><button class="primary wide" id="finish-shopping">Concluir compra</button><p class="tiny-note">Ao concluir, os itens entram no seu estoque.</p></aside></div></section>
+
+      <section id="view-estoque" class="view"><div class="page-heading"><div><p class="eyebrow">CUIDE DO QUE JÁ TEM</p><h1>Estoque da casa</h1><p class="muted">Veja quantidades, validade e o que está perto de acabar.</p></div><button class="primary" id="add-stock">＋ Novo item</button></div><div class="stock-kpis"><div><span>Itens cadastrados</span><strong id="stock-total">0</strong></div><div><span>Estoque baixo</span><strong class="orange" id="stock-low">0</strong></div><div><span>Validade próxima</span><strong class="green" id="stock-expiry">0</strong></div><div><span>Valor em estoque</span><strong id="stock-value">R$ 0,00</strong></div></div><section class="panel inventory-panel"><div class="toolbar"><div class="search"><span>⌕</span><input id="stock-search" placeholder="Buscar item, grupo ou validade..." /></div><div class="filters" id="stock-filters"><button class="filter active" data-stock-filter="Todos">Todos</button><button class="filter" data-stock-filter="Baixo">Estoque baixo</button><button class="filter" data-stock-filter="Validade">Vencendo</button></div></div><div id="inventory-grid" class="inventory-grid"></div></section></section>
+
+      <section id="view-orcamento" class="view"><div class="page-heading"><div><p class="eyebrow">PLANEJE SEM SUSTO</p><h1>Orçamento</h1><p class="muted">Acompanhe os gastos da casa de forma leve.</p></div><button class="primary" id="set-budget">✎ Ajustar orçamento</button></div><div class="budget-layout"><section class="panel budget-hero"><div><p class="eyebrow">NOVEMBRO 2026</p><h2>Seu orçamento mensal</h2><strong id="budget-big">R$ 0,00</strong><p class="muted">de <span id="budget-limit">R$ 1.500,00</span> planejados</p></div><div class="budget-ring"><div><strong id="budget-percent">0%</strong><span>usado</span></div></div></section><section class="panel expenses"><div class="panel-head"><div><p class="eyebrow">DISTRIBUIÇÃO</p><h2>Por categoria</h2></div></div><div id="expense-bars"></div></section></div><section class="panel transactions"><div class="panel-head"><h2>Últimos lançamentos</h2><button class="text-btn" id="add-expense">＋ Lançar gasto</button></div><div id="transaction-list"></div></section></section>
+
+      <section id="view-casa" class="view"><div class="page-heading"><div><p class="eyebrow">SEU LAR, DO SEU JEITO</p><h1>Minha casa</h1><p class="muted">Organize por ambientes e crie grupos que façam sentido para você.</p></div><button class="primary" id="add-group">＋ Novo grupo</button></div><div id="group-grid" class="group-grid"></div></section>
+
+      <section id="view-socorros" class="view"><div class="page-heading"><div><p class="eyebrow">CUIDADOS ESSENCIAIS</p><h1>Primeiros socorros</h1><p class="muted">Uma lista de apoio para deixar em um lugar fácil de encontrar.</p></div><button class="primary" id="add-first-aid">＋ Adicionar item</button></div><div class="notice"><span>♡</span><div><strong>Importante</strong><p>Esta é uma lista de organização doméstica. Em emergências, procure atendimento profissional.</p></div></div><section class="panel first-aid-panel"><div id="first-aid-list" class="first-aid-grid"></div></section></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><button class="modal-close" id="modal-close">×</button><p class="eyebrow" id="modal-eyebrow">NOVO ITEM</p><h2 id="modal-title">Adicionar ao estoque</h2><p class="muted" id="modal-subtitle">Preencha só o essencial. Você pode completar depois.</p><form id="item-form"><div class="form-grid"><label class="photo-drop"><input type="file" id="item-photo" accept="image/*" /><span id="photo-preview">＋<small>Adicionar foto</small></span></label><div class="form-fields"><label>Nome do item<input required id="item-name" placeholder="Ex.: Leite integral" /></label><label>Grupo<select id="item-group"><option>Sacola</option><option>Supermercado</option><option>Açougue</option><option>Limpeza</option><option>Primeiros socorros</option><option>Outro</option></select></label></div></div><div class="form-grid three"><label>Preço unitário<input id="item-price" type="number" min="0" step="0.01" placeholder="0,00" /></label><label>Quantidade<input id="item-qty" type="number" min="0" step="1" value="1" /></label><label>Estoque mínimo<input id="item-min" type="number" min="0" step="1" value="1" /></label></div><label>Data de validade <span class="optional">(opcional)</span><input id="item-expiry" type="date" /></label><div class="modal-actions"><button type="button" class="outline-btn" id="modal-cancel">Cancelar</button><button class="primary" type="submit">Salvar item</button></div></form></div></div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
