@@ -41,4 +41,18 @@ O assistente está integrado ao site estático por chamada do navegador para a A
 
 ## Reformulação de interface
 
-A interface agora usa ícones SVG Lucide inline, paleta creme/verde/terracota, cartões e foco refinados, barra inferior com cinco destinos e menu “Mais”, rótulos e datas dinâmicos, grupos que abrem o estoque filtrado e progresso de limpeza ligado aos itens cadastrados. A inspeção visual usou o screenshot runner do Taste em 320, 390, 768 e 1440 px. O `check.mjs` do Taste exige um contêiner `.wrap` e interrompeu a segunda largura; por isso a conferência responsiva foi feita pelas capturas reais de cada tamanho.
+A interface usa ícones SVG Lucide inline, paleta creme/verde/terracota, barra inferior com cinco destinos e menu “Mais”, rótulos e datas dinâmicos, grupos que abrem o estoque filtrado e progresso de limpeza ligado aos itens cadastrados. A conferência responsiva foi feita em 320, 390, 768 e 1440 px.
+
+## Continuação em 11 de novembro de 2026
+
+- Os botões dos cartões de estoque se ajustam à largura do celular; modais ficam acima da barra inferior e do atalho do assistente.
+- As seis pranchas de fotos do catálogo foram convertidas para JPEG otimizado: o total caiu de aproximadamente 13 MB para 1,2 MB, reduzindo a primeira carga em dispositivos móveis.
+- Uma prancha fotográfica extra cobre ervas, temperos, frutas sazonais, água de coco e palha de aço; todos os produtos iniciais passam a ter uma imagem correspondente.
+- As imagens de primeiros socorros foram mapeadas para o item médico correspondente. Fotos enviadas pelo usuário são reduzidas antes de serem guardadas localmente.
+- A organização inclui calendário, compromissos com checklist e lembretes, compartilhamento/importação de cópia JSON e grupos personalizados.
+- O orçamento mostra contas e planos recorrentes com equivalência mensal; cada compromisso pode ser editado ou excluído.
+- A validação manual em 320 px e 390 px confirmou navegação inferior, cartões sem transbordamento, inclusão de item na lista, ajuste de quantidade, checkbox e recálculo do total.
+- Os produtos começam com estoque zero em uma instalação nova. Alterações existentes de preço deixam de ser substituídas automaticamente pelos preços de referência ao reabrir o site.
+- Dados continuam no navegador. O compartilhamento da casa atualiza por arquivo, com backup antes da importação; não há sincronização simultânea entre aparelhos.
+- Valores são referências estáticas e variam por cidade, loja, unidade e data. Levantamentos oficiais mostram diferenças entre capitais e supermercados; revise os valores cadastrados para sua região. [Conab/Dieese, outubro de 2026](https://www.gov.br/conab/pt-br/assuntos/noticias/tomate-arroz-e-carne-bovina-pressionam-o-custo-da-cesta-basica-em-outubro-e-cafe-e-feijao-ficam-mais-baratos), [Procon de Joinville, novembro de 2026](https://www.joinville.sc.gov.br/noticias/procon-de-joinville-divulga-pesquisas-de-precos-da-cesta-basica-e-churrasco-do-mes-de-novembro/).
+- O `node --check` dos três scripts passou; `git diff --check` não apontou erros de patch. Publicação e resposta do domínio serão registradas depois do envio ao GitHub.

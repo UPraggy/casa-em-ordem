@@ -1,85 +1,63 @@
 # Casa em Ordem
 
-Aplicação estática para organizar compras, estoque, validade, orçamento e itens essenciais da casa. A interface está em português e adapta a navegação para celular.
+Aplicação para organizar a casa: lista de compras, estoque e validade, orçamento recorrente, agenda, primeiros socorros e itens domésticos. Interface em português, com barra fixa para celular.
 
 ## Abrir e executar
 
-O site publicado está em [casa.rafaelmr.com.br](https://casa.rafaelmr.com.br/). Para executar uma cópia local, entre na pasta do projeto e rode:
+O site publicado está em [casa.rafaelmr.com.br](https://casa.rafaelmr.com.br/). Para rodar localmente:
 
 ```bash
 python -m http.server 4173
 ```
 
-Depois acesse `http://127.0.0.1:4173`. Também é possível abrir `index.html` diretamente, mas um servidor local reproduz melhor o comportamento hospedado.
+Acesse `http://127.0.0.1:4173`.
 
 ## Seções
 
-- **Visão geral:** resumo da lista escolhida, itens com estoque baixo, validades próximas e gastos registrados.
-- **Lista de compras:** somente itens adicionados manualmente, com busca, filtros, quantidades para comprar, total, compartilhamento e exportação CSV.
-- **Estoque:** avisos de quantidade abaixo do mínimo, busca, filtros, edição, exclusão e cadastro de foto, preço, quantidade e validade; cada item pode ser adicionado à lista sem alterar o estoque.
-- **Orçamento:** limite mensal, lançamentos manuais e totais agrupados por categoria.
-- **Minha casa:** visão dos grupos de produtos atualmente definidos.
-- **Primeiros socorros:** checklist doméstico inicial, com possibilidade de adicionar itens.
-- **Assistente IA:** conversa em português para consultar e propor alterações na lista, estoque, orçamento, gastos e checklist. As alterações aparecem para revisão antes de salvar.
+- **Visão geral:** itens escolhidos para comprar, avisos de estoque baixo e validade e total dos compromissos recorrentes frente ao limite mensal.
+- **Lista de compras:** só inclui itens escolhidos pela pessoa. Permite busca, quantidades, total estimado, compartilhamento rápido e exportação CSV.
+- **Estoque:** quantidade atual, mínimo, validade, preço e foto. Busca, filtros, edição, exclusão e atalho para incluir ou tirar da lista de compras. O catálogo começa com quantidade zero.
+- **Orçamento:** compromissos recorrentes por semana, mês, trimestre ou ano, previsão mensal por categoria, limite mensal, lembretes de vencimento e ações para editar ou apagar cada conta. Compras do mês não são contabilizadas como orçamento recorrente.
+- **Organização:** calendário, compromissos de escola e casa, planos, busca, categorias, listas vinculadas, fotos e grupos personalizados de produtos. Itens da lista podem ser marcados, incluídos ou apagados.
+- **Primeiros socorros:** checklist doméstico com fotos correspondentes aos itens, opção de marcar e adicionar.
+- **Compartilhar a casa:** exporta listas, estoque, fotos, agenda, orçamento e checklist para um arquivo JSON que pode ser enviado e importado em outro aparelho.
+- **Assistente IA:** conversa em português com propostas revisáveis para compras, estoque, orçamento recorrente e checklist.
 
-O catálogo inicial contém **41 registros de produtos**, todos com quantidade inicial zero em um navegador sem dados salvos. Há também **9 itens** no checklist inicial de primeiros socorros. Os grupos pré-configurados incluem Sacola, Supermercado, Açougue e Primeiros socorros; o formulário de produto também oferece Limpeza e Outro.
+O catálogo inicial contém 41 produtos, todos com estoque inicial zero, além de 9 itens na lista de primeiros socorros.
 
-## Dados e privacidade
+## Dados e compartilhamento
 
-O estado do aplicativo é salvo no `localStorage` do navegador, na chave `casa-em-ordem`. Não há conta, banco de dados, API de sincronização ou cópia automática entre celulares e computadores. Cada navegador/dispositivo mantém os próprios dados.
+Os dados ficam no `localStorage` do navegador, na chave `casa-em-ordem`. O site não tem login, banco de dados ou sincronização em tempo real. Para atualizar os dados no aparelho da parceira, use **Compartilhar tudo** e envie o arquivo; no outro aparelho, escolha **Importar atualização**. A importação substitui os dados locais após confirmação e baixa um backup local antes da troca quando há conteúdo salvo. Para evitar edições concorrentes, combinem quem compartilha a versão mais recente.
 
-O catálogo padrão com quantidade zero só aparece quando não existe estado salvo. Dados antigos do navegador podem continuar preenchendo o app após a publicação de uma versão nova. Fotos enviadas são gravadas como dados locais no navegador; muitas fotos ou arquivos grandes podem atingir o limite de armazenamento do navegador.
+As imagens anexadas são armazenadas localmente e entram na exportação completa. Fotos grandes podem consumir o limite de armazenamento do navegador. As notificações do navegador funcionam enquanto o site está aberto; o arquivo `.ics` exportado pode ser importado no calendário do celular para receber lembretes com o site fechado.
 
-O assistente envia o pedido e somente os campos da casa necessários à resposta para o OpenRouter: dados de estoque/lista nos pedidos sobre produtos, preços e totais financeiros quando a pergunta tratar de valores, validade quando solicitada e checklist quando pertinente. Não envia fotos nem nomes individuais dos lançamentos financeiros. A chave da API fica no `localStorage` deste navegador, separada dos dados da casa; cada aparelho/navegador precisa configurar a própria chave. Não coloque a chave no repositório nem use em aparelho compartilhado.
+O assistente envia o pedido e apenas os campos necessários à resposta para o OpenRouter. Não envia fotos. A chave da API fica no navegador e não é incluída nos arquivos de compartilhamento. Cada aparelho pode precisar configurar sua própria chave.
 
-Compartilhar usa o recurso nativo do dispositivo quando disponível e, caso contrário, tenta copiar o texto da lista. A exportação disponível é CSV da lista de compras; não existe exportação/restauração completa do estoque, orçamento e fotos.
+## Imagens e preços
 
-## Imagens
-
-As imagens do catálogo estão em `assets/`. São seis pranchas raster usadas como imagens compostas e recortadas visualmente na interface: hortifruti, frutas, itens domésticos, mercearia, carnes e primeiros socorros. O catálogo não tem uma fotografia individual para cada produto. Itens sem imagem cadastrada ou recorte correspondente podem aparecer com emoji. O formulário permite anexar uma foto própria a um item. Os controles da interface usam um sprite inline de ícones SVG Lucide, sem dependência de CDN.
-
-## Preços e validade
-
-Os preços iniciais são valores de referência editáveis, não cotações ao vivo. Há uma lista de preços codificada em `app.js` para alguns produtos; esses valores são reaplicados quando o app inicia, então uma edição de preço desses nomes pode voltar ao valor de referência na próxima abertura.
-
-O cadastro aceita validade opcional. O cálculo de dias, a data no cabeçalho e o mês do orçamento seguem a data local do aparelho. As datas de validade que vêm com os produtos são valores de demonstração; revise-as para os produtos que você tem em casa.
+Os recortes fotográficos do catálogo estão em `assets/` como JPEGs otimizados para celular, incluindo alimentos, produtos de casa e cuidados de primeiros socorros. Cada produto inicial tem um recorte associado. Fotos enviadas são reduzidas antes de serem guardadas localmente. Os preços iniciais são referências editáveis, não cotações ao vivo; revise-os para sua região e loja.
 
 ## Interface móvel
 
-Em telas de até 820 px, a navegação vira uma barra fixa inferior com cinco atalhos; “Mais” abre Minha casa e Primeiros socorros. A barra respeita a área segura do aparelho. Em telas maiores, permanece a barra lateral.
+Até 820 px, a barra inferior fixa traz Início, Compras, Estoque, Agenda e Mais. Orçamento e Primeiros socorros ficam no menu Mais. O layout considera a área segura do aparelho e reorganiza cartões e formulários para telas estreitas.
 
 ## Publicação
 
 - Repositório: [UPraggy/casa-em-ordem](https://github.com/UPraggy/casa-em-ordem)
 - Branch publicada: `main`, diretório raiz.
-- Domínio configurado pelo arquivo `CNAME`: `casa.rafaelmr.com.br`.
-- `.nojekyll` evita que o GitHub Pages processe o site como um projeto Jekyll.
-- Não há workflow de publicação versionado em `.github/workflows`; o histórico do GitHub registra o fluxo gerenciado de Pages.
+- Domínio: `casa.rafaelmr.com.br`, configurado pelo arquivo `CNAME`.
+- `.nojekyll` evita o processamento Jekyll pelo GitHub Pages.
 
-O estado da publicação e o motivo de as mudanças recentes parecerem discretas estão documentados em [docs/ESTADO-E-PUBLICACAO.md](docs/ESTADO-E-PUBLICACAO.md). O comportamento atual e as limitações de cada tela estão em [docs/GUIA-DO-USUARIO.md](docs/GUIA-DO-USUARIO.md).
-
-## Limitações conhecidas
-
-- Os dados não sincronizam entre dispositivos e não há login/compartilhamento de estoque doméstico.
-- O botão para criar grupos personalizados ainda não cria grupos.
-- A lista começa vazia e só recebe itens que você escolher. Os alertas de estoque baixo não adicionam produtos à lista.
-- O total estimado soma todos os itens da lista; marcar a caixa indica quais itens serão baixados ao concluir a compra.
-- Os controles `+` e `−` alteram a quantidade a comprar; concluir a compra soma essa quantidade ao estoque atual.
-- Alertas são indicadores dentro da página, sem notificações do navegador ou push.
-- Os preços são referências estáticas e não vêm de uma cotação em tempo real.
-- O assistente usa `openrouter/free` e requer uma chave OpenRouter configurada no navegador. A disponibilidade e os limites do modelo gratuito dependem do OpenRouter.
+O diagnóstico anterior de publicação está em [docs/ESTADO-E-PUBLICACAO.md](docs/ESTADO-E-PUBLICACAO.md). O passo a passo de uso está em [docs/GUIA-DO-USUARIO.md](docs/GUIA-DO-USUARIO.md).
 
 ## Estrutura
 
 | Caminho | Conteúdo |
 | --- | --- |
-| `index.html` | Estrutura das telas, formulários e navegação |
-| `styles.css` | Estilos base e layout para telas maiores |
-| `mobile.css` | Regras responsivas e barra inferior |
-| `app.js` | Catálogo, estado local, cálculos e interações |
-| `design.css` | Sistema visual, componentes e ajustes tablet/celular |
-| `assistant.js` / `assistant.css` | Assistente OpenRouter, revisão de ações e interface responsiva |
+| `index.html` | Telas, navegação e formulários |
+| `styles.css`, `mobile.css`, `design.css`, `planning.css` | Estilo base, celular, componentes visuais e organização |
+| `app.js` | Catálogo, compras, estoque e estado local |
+| `planning.js` | Calendário, orçamento recorrente, lembretes e exportação/importação |
+| `assistant.js`, `assistant.css` | Assistente OpenRouter e interface |
 | `assets/` | Pranchas de imagens do catálogo |
-| `CNAME` | Domínio usado pelo GitHub Pages |
-| `.nojekyll` | Desativa processamento Jekyll |
-| `docs/` | Guia de uso e diagnóstico de publicação |
+| `CNAME`, `.nojekyll` | Configuração do GitHub Pages |

@@ -1,81 +1,72 @@
 # Guia do Casa em Ordem
 
-Este guia descreve o comportamento atual. No celular e tablet portrait, a barra inferior aparece até 820 px; o menu “Mais” reúne Minha casa e Primeiros socorros.
+O site está disponível em [casa.rafaelmr.com.br](https://casa.rafaelmr.com.br/). No celular, a barra fixa mostra **Início**, **Compras**, **Estoque**, **Agenda** e **Mais**. Orçamento e Primeiros socorros ficam em **Mais**.
 
-## Começar
+Para testar uma cópia local, rode `python -m http.server 4173` na pasta e abra `http://127.0.0.1:4173`.
 
-1. Abra [casa.rafaelmr.com.br](https://casa.rafaelmr.com.br/) ou sirva a pasta local com `python -m http.server 4173`.
-2. Use a navegação para alternar entre Visão geral, Lista de compras, Estoque, Orçamento, Minha casa e Primeiros socorros.
-3. Num navegador sem dados anteriores, os 41 produtos do catálogo começam com estoque zero. O orçamento inicial é R$ 1.500,00.
+## Primeiro uso
 
-O aplicativo guarda o estado no próprio navegador. Uma publicação não substitui automaticamente o que já está salvo na chave `casa-em-ordem`; por isso quantidades, gastos e checklist podem diferir entre aparelhos ou de um navegador para outro.
+- O catálogo vem com 41 produtos em quantidade zero e a lista de compras começa vazia.
+- Cada navegador guarda seus próprios dados. Uma atualização do site não apaga os dados já salvos.
+- A lista de primeiros socorros começa com nove itens desmarcados.
 
-## Lista de compras
+## Compras
 
-- A lista começa vazia e mostra apenas os itens que você escolheu adicionar. Um alerta de estoque baixo nunca inclui um produto automaticamente.
-- Para adicionar, use “Adicionar” na lista e escolha um item existente pelo nome ou cadastre um novo. Também é possível usar “Comprar” no cartão do item, dentro do estoque.
-- A busca filtra os nomes e os botões de grupo filtram Sacola, Supermercado ou Açougue. “Todos” inclui os demais grupos.
-- Toque/clique na linha para marcar ou desmarcar o item. A caixa também pode ser marcada diretamente.
-- Os botões `+` e `−` mudam a quantidade que você pretende comprar. O `×` remove o item da lista sem apagar do estoque.
-- “Compartilhar” usa o menu de compartilhamento do aparelho ou copia o texto da lista para a área de transferência.
-- “Exportar lista” baixa `lista-de-compras.csv`, com grupo, item, quantidade escolhida e preço.
-- “Concluir compra” exige ao menos um item marcado; soma a quantidade escolhida ao estoque e cria um lançamento agregado de gasto.
+- Use **Adicionar** ou o botão **Comprar** no cartão do estoque. Um item só entra na lista quando você o escolhe.
+- Pesquise por nome e use os filtros de grupo. Os botões `+` e `−` alteram a quantidade que pretende comprar; o `×` remove só da lista.
+- O total estimado usa preço unitário × quantidade. **Concluir compra** soma os itens marcados ao estoque.
+- **Exportar lista** baixa um CSV. **Compartilhar** abre o menu nativo do aparelho quando disponível.
 
-O valor estimado soma os itens da lista. O estoque baixo continua sendo acompanhado na tela de Estoque e nos avisos da Visão geral, separado da sua lista de compras.
+O aviso de estoque baixo continua separado: ele informa o que precisa de reposição, mas não inclui produtos na lista por conta própria.
 
-## Assistente IA (OpenRouter)
+## Estoque, fotos e validade
 
-1. Toque no botão flutuante **Assistente IA**. No celular, ele fica acima do menu inferior.
-2. Na primeira vez, abra as configurações (engrenagem), crie/consulte uma chave em [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys), cole-a e salve. A chave é exigida pela API; não está embutida no site.
-3. Escreva pedidos como “adicione 2 detergentes à lista”, “tire arroz da lista”, “atualize o estoque de leite para 3” ou “quanto tenho no orçamento?”.
-4. Quando o pedido alterar dados, confira o resumo e toque em **Aplicar mudanças**. **Descartar** não altera seus dados. Para consultar sem alterar, faça uma pergunta normal.
+Em **Estoque**, busque por produto, grupo ou data e filtre itens baixos ou com validade próxima. Cada cartão permite editar, adicionar/remover da lista ou excluir. Para ajustar os dados, abra **Editar** e altere nome, grupo, foto, preço, quantidade, mínimo ou validade. **Remover foto** apaga a foto anexada sem apagar o produto. Fotos enviadas são reduzidas automaticamente para caber melhor no armazenamento do celular.
 
-O assistente pode adicionar/remover itens e ajustar quantidades da lista, atualizar estoque, validade e mínimo, registrar gastos, definir orçamento e manter o checklist de primeiros socorros. Estoque baixo continua sendo somente aviso. A IA nunca grava as mudanças sem você aprová-las; exclusões também exigem essa aprovação.
+A quantidade fica em zero no catálogo inicial; estoque mínimo, preço e validade são valores de referência editáveis. O aviso considera baixo quando a quantidade é menor ou igual ao mínimo. Validade próxima inclui itens vencidos e os que vencem nos próximos 30 dias; confirme a data cadastrada.
 
-A chave fica no armazenamento local deste navegador. O pedido e somente os dados da casa necessários à resposta são enviados diretamente ao OpenRouter: preços e totais financeiros quando a pergunta tratar de valores, validade quando solicitada e checklist quando pertinente. Fotos e nomes individuais dos lançamentos não são enviados. Não configure a chave em dispositivo compartilhado. Cada aparelho ou navegador precisa da própria chave. O modelo padrão é o roteador gratuito `openrouter/free`; disponibilidade e limites são administrados pelo OpenRouter.
+## Orçamento recorrente
 
-## Estoque e produtos
+A tela **Orçamento** é para contas e compromissos que se repetem — por exemplo aluguel, internet, mensalidade escolar ou assinatura. **Adicionar compromisso** permite informar nome, categoria, valor, frequência e próximo vencimento. A previsão mensal converte valores semanais, trimestrais e anuais para uma estimativa mensal.
 
-“Novo item” permite preencher nome, grupo, preço unitário, quantidade, estoque mínimo, validade opcional e foto. A busca aceita nome, grupo e data mostrada. Os filtros exibem todos os itens, estoque baixo ou validade próxima. Cada cartão permite editar, excluir ou adicionar/remover o item da lista de compras.
+O limite mensal pode ser alterado em **Ajustar teto mensal**. Cada compromisso pode ser editado ou apagado. Compras e gastos avulsos não entram nessa previsão.
 
-O indicador de estoque baixo considera quantidade menor ou igual ao mínimo, inclusive zero. Alertas de validade contam até 30 dias a partir da data local do aparelho e incluem itens já vencidos; confira a validade cadastrada antes de se basear no aviso.
+## Organização, calendário e avisos
 
-As fotos enviadas ficam no armazenamento local do navegador. Não são carregadas para um servidor nem compartilhadas automaticamente com outros usuários.
+Na aba **Agenda**, use **Agendar compromisso** para criar eventos de escola, saúde, casa ou planos. É possível anexar ou remover uma foto, incluir detalhes e lista de itens, marcar a tarefa como feita, editar ou apagar. A busca e os filtros ajudam a localizar os compromissos.
 
-## Orçamento e gastos
+Toque em um dia do calendário para ver os próximos compromissos a partir daquela data; use as setas para trocar o mês. Listas vinculadas ao evento aceitam novos itens, marcação e exclusão.
 
-O orçamento inicial é R$ 1.500,00 e pode ser alterado pelo botão “Ajustar orçamento”. “Lançar gasto” registra nome e valor usando caixas de diálogo do navegador. A tela mostra totais por categoria e lançamentos armazenados localmente.
+**Ativar avisos** pede permissão ao navegador e verifica lembretes enquanto a página está aberta. Para receber avisos com o site fechado, use **Exportar calendário** e importe o arquivo `.ics` no calendário do celular. O sistema e as permissões desse calendário controlam os avisos em segundo plano.
 
-Ao concluir uma compra, o sistema cria um lançamento agregado chamado “Compra da casa”, atribuído à categoria Supermercado. Novos lançamentos usam a data local atual; registros já salvos preservam a data original.
+Os grupos predefinidos aparecem mais abaixo na mesma aba. Use **Novo grupo** para criar uma categoria; ela também fica disponível ao cadastrar ou editar um produto. Toque no cartão do grupo para filtrar o estoque.
 
-## Minha casa e grupos
+## Compartilhar e atualizar em outro aparelho
 
-A tela lista grupos predefinidos: Sacola, Supermercado, Açougue e Primeiros socorros. Toque em um cartão para abrir o estoque filtrado por aquele grupo.
+1. No aparelho com os dados mais recentes, abra **Agenda** e toque em **Compartilhar tudo**.
+2. Envie o arquivo pelo menu de compartilhamento ou envie o JSON baixado por mensagem.
+3. No outro aparelho, abra o site, acesse **Agenda** e toque em **Importar atualização**.
+4. Escolha o arquivo e confirme a substituição. Se houver dados locais, o site baixa um arquivo de backup antes de importar.
+
+O arquivo inclui lista, estoque, fotos, agenda, compromissos recorrentes, limite e checklist. A importação substitui o conjunto local; portanto, use sempre a cópia mais recente. Não há sincronização simultânea ou conta compartilhada nesta versão.
 
 ## Primeiros socorros
 
-O checklist inicial contém curativos, gaze estéril, antisséptico, termômetro, soro fisiológico, luvas descartáveis, tesoura sem ponta, analgésico e compressa fria. É possível marcar os itens e adicionar um item personalizado. A tela informa que é uma lista de organização doméstica, não orientação médica; em emergências, procure atendimento profissional.
+A lista inclui curativos, gaze estéril, antisséptico, termômetro, soro fisiológico, luvas, tesoura sem ponta, analgésico e compressa fria. As imagens estão associadas aos itens médicos correspondentes. É possível marcar os itens ou adicionar outro. A lista serve para organização doméstica e não substitui orientação profissional; em emergências, procure atendimento adequado.
 
-## Imagens do catálogo
+## Assistente IA (OpenRouter)
 
-As seis imagens em `assets/` são pranchas compostas. O app mostra recortes dessas pranchas para alguns produtos; os outros usam emoji até que uma foto seja anexada. Assim, não há uma fotografia individual específica para cada item de supermercado, alimento ou primeiros socorros.
+O assistente pode propor mudanças na lista, estoque, orçamento recorrente e checklist. Revise a lista de ações e toque em **Aplicar mudanças**; **Descartar** mantém os dados como estavam. O estoque baixo não gera compras automaticamente.
 
-## Preços de referência
+A chave OpenRouter é salva localmente no navegador e não é incluída no arquivo de compartilhamento. O pedido e os campos necessários à resposta são enviados ao OpenRouter; fotos não são enviadas. Disponibilidade do modelo gratuito depende do serviço.
 
-Os valores iniciais são referências estáticas sem atualização de loja, região ou data. Para nomes presentes no objeto `marketPrices` em `app.js`, o valor da lista é aplicado outra vez quando o app carrega. Isso pode desfazer uma edição manual de preço para esses produtos.
+## Imagens e preços
 
-## Dados locais e compartilhamento
+Pranchas fotográficas JPEG otimizadas para produtos comuns ficam na pasta `assets/`; juntas ocupam cerca de 1,5 MB, aproximadamente 90% menos que as versões PNG anteriores. Todos os produtos do catálogo inicial têm um recorte associado; itens cadastrados por você podem receber uma foto própria. Preços iniciais são referências estáticas, não uma cotação em tempo real. Revise os valores para sua loja e região.
 
-- Chave local: `casa-em-ordem`.
-- O navegador mantém produtos, fotos, orçamento, gastos e checklist.
-- Não há login, sincronização, banco de dados, exportação integral ou restauração de backup.
-- Compartilhar transmite apenas texto da lista de compras; não compartilha o estado completo da casa.
-- Fotos grandes podem consumir a cota do `localStorage` e impedir novos salvamentos.
+## Limites desta versão
 
-## Recursos ainda não implementados
-
-- Grupos personalizados funcionais.
-- Notificações fora da página (push ou notificações do sistema).
-- Datas e histórico financeiro dinâmicos.
-- Pesquisa de preços atualizada automaticamente.
-- Sincronização entre pessoas/dispositivos.
+- Os dados ficam no aparelho e não sincronizam automaticamente. O arquivo de compartilhamento atualiza os dados por importação manual.
+- Notificações do navegador dependem da página estar aberta; o calendário do celular pode fornecer avisos em segundo plano após importar o `.ics`.
+- Os grupos iniciais são Sacola, Supermercado, Açougue, Limpeza, Primeiros socorros e Outro; novos grupos podem ser criados na aba Organização.
+- Preços de referência não acompanham alterações de mercado automaticamente.
