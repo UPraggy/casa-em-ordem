@@ -569,6 +569,7 @@
     downloadBlob(blob, name);
     return blob;
   }
+  app.downloadHouseSnapshot = downloadHouseSnapshot;
 
   async function shareHouse() {
     const file = new File([JSON.stringify(snapshotEnvelope(), null, 2)], `casa-em-ordem-${new Date().toISOString().slice(0, 10)}.json`, { type: 'application/json' });
@@ -630,7 +631,15 @@
       color: ['cream', 'sage', 'peach', 'blue'].includes(item.color) ? item.color : 'cream', pinned: Boolean(item.pinned), archived: Boolean(item.archived),
       createdAt: Number(item.createdAt) || Date.now(), updatedAt: Number(item.updatedAt) || Date.now()
     })).filter(item => item.title || item.body);
-    return { version: 2, items, events, fixedCosts, aid, expenses, groups, notes, budget: Math.max(0, Number(raw.budget) || 0) };
+    const emailProvider = raw.emailProvider && typeof raw.emailProvider === 'object' ? {
+      serviceId: safeText(raw.emailProvider.serviceId, 120), templateId: safeText(raw.emailProvider.templateId, 120),
+      publicKey: safeText(raw.emailProvider.publicKey, 160),
+      enabled: Boolean(raw.emailProvider.enabled)
+    } : null;
+    const googleCalendarMap = raw.googleCalendarMap && typeof raw.googleCalendarMap === 'object' && !Array.isArray(raw.googleCalendarMap)
+      ? Object.fromEntries(Object.entries(raw.googleCalendarMap).slice(0, 2000).map(([key, value]) => [cleanId(key, ''), safeText(value, 200)]).filter(([key, value]) => key && value))
+      : {};
+    return { version: 2, items, events, fixedCosts, aid, expenses, groups, notes, budget: Math.max(0, Number(raw.budget) || 0), googleCalendarMap, ...(emailProvider ? { emailProvider } : {}) };
   }
 
   $('#import-house-file').addEventListener('change', async event => {
@@ -643,9 +652,8 @@
       const proceed = confirm(`A atualização vai substituir os dados deste aparelho: compras, estoque, fotos, agenda, planos e primeiros socorros. Se houver mudanças locais, vou baixar um backup primeiro. Continuar?`);
       if (!proceed) return;
       if (hasMeaningfulLocalData()) downloadHouseSnapshot(state, 'backup');
-      localStorage.setItem('casa-em-ordem', JSON.stringify(imported));
       Object.keys(state).forEach(key => delete state[key]); Object.assign(state, imported);
-      app.renderAll(); app.toast('Dados atualizados a partir do arquivo compartilhado.');
+      app.save(); app.toast('Dados atualizados a partir do arquivo compartilhado.');
     } catch (error) {
       app.toast(error instanceof SyntaxError ? 'O arquivo não está íntegro. Peça uma nova exportação.' : error.message || 'Não consegui importar os dados. Verifique o espaço deste navegador.');
     } finally { houseImportBusy = false; }

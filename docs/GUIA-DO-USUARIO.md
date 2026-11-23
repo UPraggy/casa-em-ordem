@@ -35,7 +35,32 @@ O limite mensal pode ser alterado em **Ajustar teto mensal**. Cada compromisso p
 
 Na aba **Agenda**, use **Agendar compromisso** para criar eventos de escola, saúde, casa ou planos. É possível anexar ou remover uma foto, incluir detalhes e lista de itens, marcar a tarefa como feita, editar ou apagar. A busca e os filtros ajudam a localizar os compromissos.
 
-Em **Google Agenda e e-mail**, configure um Client ID OAuth do Google Cloud, cadastre os destinatários separados por vírgula e conecte a conta. Use **Sincronizar agenda** para enviar ou atualizar compromissos e contas recorrentes no Google Agenda. **Enviar e-mail de teste** verifica os destinatários. Os e-mails automáticos precisam que a página fique aberta e conectada. O mesmo painel sincroniza os dados da casa com uma cópia privada no Google Drive: nos outros celulares, conecte a mesma conta e escolha carregar a cópia existente. Contas diferentes e edições concorrentes não são mescladas.
+Em **Conta da casa e sincronização**, cole a configuração Web do Firebase, autorize o armazenamento na nuvem e entre com a conta da casa. Use o mesmo e-mail e senha nos outros celulares; na primeira conexão, escolha carregar a cópia da nuvem ou enviar os dados locais. Aguarde o status **Sincronizado** após alterações. Se dois aparelhos editarem ao mesmo tempo, a última gravação pode prevalecer.
+
+Em **Google Agenda**, configure o Client ID OAuth e use **Sincronizar agenda** para criar, atualizar ou remover compromissos e contas recorrentes do calendário principal.
+
+Em **Alertas por e-mail (EmailJS)**, conecte seu SMTP no painel EmailJS e crie um modelo com destinatários fixos em To, CC ou BCC. Use `{{subject}}` no assunto e `{{message}}` no conteúdo. Preencha Service ID, Template ID e Public Key no site; depois use **Enviar teste**. A credencial SMTP e os destinatários ficam no EmailJS, não no site. Os lembretes automáticos só são processados enquanto a página está aberta.
+
+### Configuração do Firebase
+
+1. No Firebase Console, crie um projeto e adicione um aplicativo **Web**. Copie o objeto de configuração mostrado no console como JSON (sem `const firebaseConfig =`).
+2. Em **Authentication → Métodos de login**, ative **E-mail/senha**. Crie um **Realtime Database**.
+3. Em **Realtime Database → Regras**, use regras restritas à conta conectada:
+
+```json
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    }
+  }
+}
+```
+
+4. No site, cole a configuração Web, salve, marque a autorização de sincronização e escolha **Criar conta** uma única vez. Nos demais aparelhos, use **Entrar** com o mesmo e-mail e senha.
 
 Toque em um dia do calendário para ver os próximos compromissos a partir daquela data; use as setas para trocar o mês. Listas vinculadas ao evento aceitam novos itens, marcação e exclusão.
 
@@ -50,7 +75,7 @@ Os grupos predefinidos aparecem mais abaixo na mesma aba. Use **Novo grupo** par
 3. No outro aparelho, abra o site, acesse **Agenda** e toque em **Importar atualização**.
 4. Escolha o arquivo e confirme a substituição. Se houver dados locais, o site baixa um arquivo de backup antes de importar.
 
-O arquivo inclui lista, estoque, fotos, agenda, compromissos recorrentes, limite e checklist. A importação substitui o conjunto local; portanto, use sempre a cópia mais recente. Não há sincronização simultânea ou conta compartilhada nesta versão.
+O arquivo inclui lista, estoque, fotos, agenda, compromissos recorrentes, limite, checklist e anotações. A importação substitui o conjunto local; portanto, use sempre a cópia mais recente. Para sincronização automática em vários celulares, conecte a mesma conta Firebase na seção **Organização**.
 
 ## Primeiros socorros
 
@@ -68,7 +93,7 @@ Pranchas fotográficas JPEG otimizadas para produtos comuns ficam na pasta `asse
 
 ## Limites desta versão
 
-- Os dados ficam no aparelho e não sincronizam automaticamente. O arquivo de compartilhamento atualiza os dados por importação manual.
+- Sem conectar uma conta Firebase, os dados ficam apenas no aparelho; o arquivo de compartilhamento permite transferência manual. Com a mesma conta Firebase conectada nos aparelhos, os dados sincronizam pela nuvem.
 - Notificações do navegador dependem da página estar aberta; o calendário do celular pode fornecer avisos em segundo plano após importar o `.ics`.
 - Os grupos iniciais são Sacola, Supermercado, Açougue, Limpeza, Primeiros socorros e Outro; novos grupos podem ser criados na aba Organização.
 - Preços de referência não acompanham alterações de mercado automaticamente.

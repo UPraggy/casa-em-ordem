@@ -71,6 +71,9 @@ body:has(.modal-backdrop.open) .ai-panel { visibility: hidden; }
 .google-tool-content > p { margin-top: -6px; }
 .google-tool-content label { display: grid; gap: 5px; color: #53685a; font-size: 11px; }
 .google-tool-content input { min-width: 0; min-height: 40px; padding: 9px 11px; border: 1px solid #dfe6dc; border-radius: 10px; background: #fff; color: #263a2e; font: inherit; }
+.google-tool-content textarea { min-width: 0; width: 100%; resize: vertical; padding: 9px 11px; border: 1px solid #dfe6dc; border-radius: 10px; background: #fff; color: #263a2e; font: 11px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.firebase-consent { display: grid !important; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 8px !important; padding: 9px 10px; border: 1px solid #e6eadf; border-radius: 10px; background: #f8faf5; line-height: 1.45; }
+.firebase-consent input { width: 18px; min-height: 18px; margin: 0; accent-color: #41694e; }
 .google-status { min-height: 18px; color: #55745e; font-size: 11px; overflow-wrap: anywhere; }
 .google-actions { display: flex; flex-wrap: wrap; gap: 7px; }
 .google-actions button { min-height: 38px; }

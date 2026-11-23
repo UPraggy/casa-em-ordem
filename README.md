@@ -28,19 +28,22 @@ O catálogo inicial contém 41 produtos, todos com estoque inicial zero, além d
 
 ## Dados e compartilhamento
 
-Os dados ficam no `localStorage` do navegador, na chave `casa-em-ordem`. Depois de conectar o Google na seção **Organização**, o app também salva uma cópia privada no `appDataFolder` do Google Drive. Ao conectar outro aparelho com a mesma conta Google, escolha carregar os dados do Drive. Alterações feitas enquanto a sessão Google estiver ativa são enviadas ao Drive; abra/atualize o site e conecte a mesma conta nos demais aparelhos para carregar a cópia atual. Esse modo usa uma cópia única: edições simultâneas em aparelhos diferentes podem sobrescrever a versão mais recente. Contas Google diferentes não compartilham essa cópia. A exportação **Compartilhar tudo** continua disponível para transferência manual.
+Os dados ficam no `localStorage` do navegador, na chave `casa-em-ordem`. Na seção **Organização**, conecte uma conta Firebase para salvar e sincronizar a casa entre aparelhos que entrarem com o mesmo e-mail e senha. Na primeira conexão, o app pergunta se deve carregar a cópia da nuvem ou enviar a cópia deste aparelho. Edições posteriores são sincronizadas em tempo real; edições simultâneas ainda podem se sobrescrever, então aguarde a indicação **Sincronizado** antes de editar em outro aparelho. A configuração Web do Firebase fica neste navegador; o app não guarda a senha da conta. **Compartilhar tudo** segue disponível como arquivo portátil para aparelhos ou contas diferentes.
 
-Fotos anexadas entram na cópia sincronizada com o Drive e na exportação completa, mas fotos grandes podem consumir armazenamento e levar mais tempo para enviar. Na seção **Organização**, Google Agenda pode receber os compromissos e contas recorrentes do próximo ano; edições e exclusões são aplicadas na sincronização seguinte. Alertas por e-mail do Gmail aceitam vários destinatários e são verificados enquanto a página está aberta e a autorização Google continua válida. Eles não rodam com o site fechado. Exporte o calendário `.ics` para receber lembretes pelo calendário do celular mesmo quando o site estiver fechado.
+Fotos anexadas entram na cópia do Firebase e na exportação JSON; elas consomem a quota de dados do Realtime Database. A seção **Google Agenda** continua independente e sincroniza compromissos e contas recorrentes do próximo ano. Para e-mail, configure uma conexão SMTP e um modelo no EmailJS. O site guarda somente Service ID, Template ID e chave pública; SMTP e destinatários ficam no EmailJS. Alertas automáticos são avaliados enquanto o site está aberto e conectado à internet. Para avisos com o site fechado, exporte o `.ics` para o calendário do celular.
 
-### Configuração do Google
+### Configuração Firebase e EmailJS
 
-1. No Google Cloud Console, crie um projeto e ative **Google Calendar API**, **Gmail API** e **Google Drive API**.
-2. Configure a tela de consentimento OAuth, inclua a conta Google como usuária de teste se o app ficar em modo de teste, e crie um **OAuth Client ID** do tipo **Aplicativo da Web**.
-3. Em **Origens JavaScript autorizadas**, cadastre `https://casa.rafaelmr.com.br`.
-4. Cole o Client ID na seção **Google Agenda e e-mail** do site, salve, informe os destinatários e toque em **Conectar Google**.
-5. Autorize o acesso e use **Sincronizar agenda**. Envie o e-mail de teste antes de depender dos avisos.
+1. Crie um projeto no Firebase, cadastre um app Web, ative **Authentication → E-mail/senha** e crie um **Realtime Database**.
+2. Cole o objeto de configuração Web do Firebase em **Conta da casa e sincronização**. Nas regras do Realtime Database, limite a leitura e escrita ao UID autenticado (exemplo nas instruções de configuração).
+3. Crie uma conta da casa uma vez e use o mesmo e-mail e senha nos celulares que devem compartilhar os dados. A primeira conexão oferece a escolha entre manter os dados locais ou carregar os dados existentes na nuvem.
+4. No EmailJS, conecte seu provedor SMTP e crie um modelo. Defina os destinatários fixos em **To Email**, **CC** ou **BCC**; use `{{subject}}` no assunto e `{{message}}` no conteúdo. Cole Service ID, Template ID e Public Key no site.
 
-O site não pede nem armazena a senha Google. O token de acesso fica apenas na memória daquela página e expira; reconecte quando o site pedir. O Client ID fica salvo localmente nesse navegador; a lista de destinatários é incluída na cópia privada do Drive para acompanhar os dados da casa. A autorização de Gmail é sensível e contas publicadas para uso geral podem exigir verificação do Google. Os dados no Drive ficam vinculados à conta que autorizou e não são automaticamente compartilhados com outras contas Google.
+Firebase Realtime Database tem cota gratuita de 1 GB armazenado e 10 GB/mês de downloads. O plano gratuito do EmailJS permite 200 solicitações mensais. O EmailJS pode manter histórico de e-mails e variáveis, recurso que pode ser desativado nas configurações do modelo. Funções do Firebase para tarefas em segundo plano exigem plano Blaze; os alertas deste site, portanto, só são processados com a página aberta.
+
+### Google Agenda
+
+Google Calendar API ainda usa OAuth do Google. Crie um Client ID do tipo **Aplicativo da Web**, cadastre `https://casa.rafaelmr.com.br` como origem JavaScript autorizada e cole o Client ID na seção **Google Agenda**. O site pede apenas acesso a eventos do calendário; senha Google não é armazenada.
 
 O assistente envia o pedido e apenas os campos necessários à resposta para o OpenRouter. Não envia fotos. A chave da API fica no navegador e não é incluída nos arquivos de compartilhamento. Cada aparelho pode precisar configurar sua própria chave.
 
