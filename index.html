@@ -11,9 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="mobile.css" />
-  <link rel="stylesheet" href="design.css" />
+  <link rel="stylesheet" href="design.css?v=20261123a" />
   <link rel="stylesheet" href="assistant.css" />
-  <link rel="stylesheet" href="planning.css?v=20261111c" />
+  <link rel="stylesheet" href="planning.css?v=20261123a" />
 </head>
 <body>
 <!-- Lucide icons, ISC license: https://github.com/lucide-icons/lucide -->
@@ -151,10 +151,11 @@
         <button class="nav-item" data-view="estoque"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#icon-boxes"/></svg></span><span class="nav-label"><span class="nav-long">Estoque</span><span class="nav-short">Estoque</span></span></button>
         <button class="nav-item" data-view="orcamento"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#icon-wallet-cards"/></svg></span><span class="nav-label"><span class="nav-long">Orçamento</span><span class="nav-short">Contas</span></span></button>
         <button class="nav-item" data-view="planejamento"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#icon-calendar-days"/></svg></span><span class="nav-label"><span class="nav-long">Organização</span><span class="nav-short">Agenda</span></span></button>
+        <button class="nav-item" data-view="notas"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#icon-pencil"/></svg></span><span class="nav-label"><span class="nav-long">Anotações</span><span class="nav-short">Notas</span></span></button>
         <button class="nav-item" data-view="socorros"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#icon-cross"/></svg></span><span class="nav-label"><span class="nav-long">Primeiros socorros</span><span class="nav-short">Socorros</span></span></button>
             <button class="nav-item more-nav" id="more-nav" type="button" aria-label="Mais seções" aria-expanded="false" aria-controls="mobile-more-menu"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#icon-ellipsis"/></svg></span><span class="nav-label"><span class="nav-short">Mais</span><span class="nav-long">Mais</span></span></button>
       </nav>
-      <div class="mobile-more-menu" id="mobile-more-menu" hidden><button type="button" data-view="orcamento"><svg class="icon" aria-hidden="true"><use href="#icon-wallet-cards"/></svg><span>Orçamento recorrente</span></button><button type="button" data-view="socorros"><svg class="icon" aria-hidden="true"><use href="#icon-cross"/></svg><span>Primeiros socorros</span></button></div>
+      <div class="mobile-more-menu" id="mobile-more-menu" hidden><button type="button" data-view="orcamento"><svg class="icon" aria-hidden="true"><use href="#icon-wallet-cards"/></svg><span>Orçamento recorrente</span></button><button type="button" data-view="notas"><svg class="icon" aria-hidden="true"><use href="#icon-pencil"/></svg><span>Anotações</span></button><button type="button" data-view="socorros"><svg class="icon" aria-hidden="true"><use href="#icon-cross"/></svg><span>Primeiros socorros</span></button></div>
       <div class="sidebar-bottom"><div class="tip-card"><span><svg class="icon" aria-hidden="true"><use href="#icon-sun"/></svg></span><div><strong>Casa tranquila</strong><p>Pequenos cuidados, todos os dias.</p></div></div></div>
     </aside>
 
@@ -191,6 +192,19 @@
         <section class="panel home-groups-panel"><div class="panel-head"><div><p class="eyebrow">AMBIENTES</p><h2>Minha casa</h2><p class="muted small">Atalhos para os grupos de produtos da casa.</p></div><button class="primary" id="add-group"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Novo grupo</button></div><div id="group-grid" class="group-grid"></div></section>
       </section>
 
+      <section id="view-notas" class="view">
+        <div class="page-heading"><div><p class="eyebrow">IDEIAS, LEMBRETES E LISTAS</p><h1>Anotações</h1><p class="muted">Notas rápidas em cartões, com busca, cores e opção de fixar.</p></div><button class="primary" id="note-add"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Nova nota</button></div>
+        <section class="panel notes-compose" id="notes-compose" hidden>
+          <form id="note-form">
+            <label class="notes-title-label"><span class="visually-hidden">Título</span><input id="note-title" maxlength="100" placeholder="Título da nota" autocomplete="off"></label>
+            <label><span class="visually-hidden">Anotação</span><textarea id="note-body" rows="3" maxlength="4000" placeholder="Escreva uma anotação ou lista..."></textarea></label>
+            <div class="notes-compose-actions"><select id="note-color" aria-label="Cor da nota"><option value="cream">Creme</option><option value="sage">Verde</option><option value="peach">Pêssego</option><option value="blue">Azul</option></select><button class="outline-btn" id="note-cancel" type="button">Cancelar</button><button class="primary" type="submit">Salvar nota</button></div>
+          </form>
+        </section>
+        <div class="notes-toolbar"><div class="search"><svg class="icon" aria-hidden="true"><use href="#icon-search"/></svg><input id="notes-search" type="search" placeholder="Buscar nas notas..." aria-label="Buscar nas notas"></div><div class="notes-filters" role="group" aria-label="Filtro de notas"><button type="button" class="filter active" data-notes-filter="all">Todas</button><button type="button" class="filter" data-notes-filter="pinned">Fixadas</button><button type="button" class="filter" data-notes-filter="archived">Arquivadas</button></div></div>
+        <div class="notes-grid" id="notes-grid" aria-live="polite"></div>
+      </section>
+
       <section id="view-socorros" class="view"><div class="page-heading"><div><p class="eyebrow">CUIDADOS ESSENCIAIS</p><h1>Primeiros socorros</h1><p class="muted">Uma lista de apoio para deixar em um lugar fácil de encontrar.</p></div><button class="primary" id="add-first-aid"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Adicionar item</button></div><div class="notice"><span class="notice-icon"><svg class="icon" aria-hidden="true"><use href="#icon-heart-pulse"/></svg></span><div><strong>Importante</strong><p>Esta é uma lista de organização doméstica. Em emergências, procure atendimento profissional.</p></div></div><section class="panel first-aid-panel"><div id="first-aid-list" class="first-aid-grid"></div></section></section>
     </main>
   </div>
@@ -202,6 +216,8 @@
   <div class="modal-backdrop" id="group-backdrop"><div class="modal planning-modal" role="dialog" aria-modal="true" aria-labelledby="group-modal-title"><button class="modal-close" id="group-close" type="button" aria-label="Fechar"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg></button><p class="eyebrow">ORGANIZE SEUS PRODUTOS</p><h2 id="group-modal-title">Criar grupo</h2><p class="muted">Use um grupo para juntar produtos da casa.</p><form id="group-form"><label>Nome do grupo<input id="group-name" required maxlength="40" placeholder="Ex.: Café da manhã"></label><div class="modal-actions"><button type="button" class="outline-btn" id="group-cancel">Cancelar</button><button class="primary" type="submit">Criar grupo</button></div></form></div></div>
 
   <div class="modal-backdrop" id="budget-backdrop"><div class="modal planning-modal budget-modal" role="dialog" aria-modal="true" aria-labelledby="budget-modal-title"><button class="modal-close" id="budget-close" type="button" aria-label="Fechar"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg></button><p class="eyebrow">ORÇAMENTO RECORRENTE</p><h2 id="budget-modal-title">Ajustar limite mensal</h2><p class="muted">Defina o teto planejado para as contas e compromissos recorrentes.</p><form id="budget-form"><label>Limite mensal<input id="budget-cap-input" type="number" min="0" step="0.01" required inputmode="decimal" placeholder="1.500,00"></label><div class="modal-actions"><button type="button" class="outline-btn" id="budget-cancel">Cancelar</button><button class="primary" type="submit">Salvar limite</button></div></form></div></div>
+
+  <div class="modal-backdrop" id="note-delete-backdrop"><div class="modal planning-modal" role="dialog" aria-modal="true" aria-labelledby="note-delete-title"><p class="eyebrow">ANOTAÇÕES</p><h2 id="note-delete-title">Apagar esta nota?</h2><p class="muted">Essa ação não pode ser desfeita.</p><div class="modal-actions"><button type="button" class="outline-btn" id="note-delete-cancel">Cancelar</button><button class="primary danger-btn" id="note-delete-confirm" type="button">Apagar nota</button></div></div></div>
 
   <button class="ai-launcher" id="ai-launcher" type="button" aria-label="Abrir assistente da casa" aria-expanded="false" aria-controls="ai-panel">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/><path d="m19 14 .9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14Z"/></svg>
@@ -240,8 +256,9 @@
 
   <div class="modal-backdrop" id="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><button class="modal-close" id="modal-close" aria-label="Fechar"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg></button><p class="eyebrow" id="modal-eyebrow">NOVO ITEM</p><h2 id="modal-title">Adicionar ao estoque</h2><p class="muted" id="modal-subtitle">Preencha só o essencial. Você pode completar depois.</p><form id="item-form"><div class="form-grid"><div class="photo-field"><label class="photo-drop"><input type="file" id="item-photo" accept="image/*" /><span id="photo-preview"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg><small>Adicionar foto</small></span></label><button type="button" id="photo-remove" class="photo-remove" hidden>Remover foto</button></div><div class="form-fields"><label>Nome do item<input required id="item-name" list="existing-item-names" placeholder="Ex.: Leite integral" /><datalist id="existing-item-names"></datalist></label><label>Grupo<select id="item-group"><option>Sacola</option><option>Supermercado</option><option>Açougue</option><option>Limpeza</option><option>Primeiros socorros</option><option>Outro</option></select></label></div></div><div class="form-grid three"><label>Preço unitário<input id="item-price" type="number" min="0" step="0.01" placeholder="0,00" /></label><label><span id="item-qty-label">Quantidade em estoque</span><input id="item-qty" type="number" min="0" step="1" value="1" /></label><label>Estoque mínimo<input id="item-min" type="number" min="0" step="1" value="1" /></label></div><label>Data de validade <span class="optional">(opcional)</span><input id="item-expiry" type="date" /></label><div class="modal-actions"><button type="button" class="outline-btn" id="modal-cancel">Cancelar</button><button class="primary" type="submit">Salvar item</button></div></form></div></div>
   <div class="toast" id="toast"></div>
-  <script src="app.js?v=20261111d"></script>
+  <script src="app.js?v=20261123a"></script>
   <script src="assistant.js?v=20261111"></script>
   <script src="planning.js?v=20261111d"></script>
+  <script src="notes.js?v=20261123a"></script>
 </body>
 </html>

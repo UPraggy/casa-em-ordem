@@ -38,6 +38,10 @@
     return String(value ?? '').replace(/[<>"'`]/g, '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max);
   }
 
+  function safeNoteText(value, max = 4000) {
+    return String(value ?? '').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, ' ').trim().slice(0, max);
+  }
+
   function money(value) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value) || 0);
   }
@@ -550,7 +554,7 @@
       const original = originalAid.get(item.id);
       return !original || item.name !== original[0] || item.emoji !== original[1] || item.note !== original[2] || item.checked;
     });
-    return Boolean(state.events.length || state.fixedCosts.length || state.expenses.length || Number(state.budget) !== 1500 || state.groups.length > 6 || itemsChanged || aidChanged);
+    return Boolean(state.events.length || state.fixedCosts.length || state.expenses.length || state.notes?.length || Number(state.budget) !== 1500 || state.groups.length > 6 || itemsChanged || aidChanged);
   }
 
   function snapshotEnvelope(data = state) {
@@ -620,7 +624,12 @@
     const expenses = (Array.isArray(raw.expenses) ? raw.expenses : []).slice(0, 5000).map(item => ({
       name: safeText(item.name, 100), category: safeText(item.category, 40), value: Math.max(0, Number(item.value) || 0), date: safeText(item.date, 40)
     }));
-    return { version: 2, items, events, fixedCosts, aid, expenses, groups, budget: Math.max(0, Number(raw.budget) || 0) };
+    const notes = (Array.isArray(raw.notes) ? raw.notes : []).slice(0, 2000).filter(item => item && typeof item === 'object').map((item, index) => ({
+      id: cleanId(item.id, `note-import-${index}`), title: safeNoteText(item.title, 100), body: safeNoteText(item.body, 4000),
+      color: ['cream', 'sage', 'peach', 'blue'].includes(item.color) ? item.color : 'cream', pinned: Boolean(item.pinned), archived: Boolean(item.archived),
+      createdAt: Number(item.createdAt) || Date.now(), updatedAt: Number(item.updatedAt) || Date.now()
+    })).filter(item => item.title || item.body);
+    return { version: 2, items, events, fixedCosts, aid, expenses, groups, notes, budget: Math.max(0, Number(raw.budget) || 0) };
   }
 
   $('#import-house-file').addEventListener('change', async event => {
