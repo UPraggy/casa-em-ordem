@@ -95,7 +95,7 @@
         },
         error_callback: error => status(`Janela de autorização fechada ou bloqueada${error?.type ? ` (${error.type})` : ''}.`)
       });
-      tokenClient.requestAccessToken({ prompt: 'consent' });
+      tokenClient.requestAccessToken();
       status('Aguardando autorização na janela do Google…');
     } catch (error) { status(error.message); }
   }
