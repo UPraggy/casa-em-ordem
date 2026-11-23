@@ -66,6 +66,14 @@ body:has(.modal-backdrop.open) .ai-panel { visibility: hidden; }
 .planning-tool-card p { margin: 4px 0 0; color: #6d7f72; font-size: 11px; line-height: 1.5; }
 .planning-tool-card > div:nth-child(2) { min-width: 0; }
 .sharing-tool { grid-template-columns: 44px minmax(0, 1fr) auto; }
+.google-tool { grid-template-columns: 44px minmax(0, 1fr); align-items: start; }
+.google-tool-content { display: grid; min-width: 0; gap: 9px; }
+.google-tool-content > p { margin-top: -6px; }
+.google-tool-content label { display: grid; gap: 5px; color: #53685a; font-size: 11px; }
+.google-tool-content input { min-width: 0; min-height: 40px; padding: 9px 11px; border: 1px solid #dfe6dc; border-radius: 10px; background: #fff; color: #263a2e; font: inherit; }
+.google-status { min-height: 18px; color: #55745e; font-size: 11px; overflow-wrap: anywhere; }
+.google-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.google-actions button { min-height: 38px; }
 .sharing-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
 .sharing-actions button, .reminder-tool button { white-space: nowrap; }
 .notification-active { border-color: #c7dbc4 !important; background: #edf5e9 !important; color: #315e47 !important; }
@@ -212,13 +220,15 @@ body:has(.modal-backdrop.open) .ai-panel { visibility: hidden; }
 }
 @media (max-width: 700px) {
   .planning-tools { gap: 8px; }
-  .planning-tool-card, .sharing-tool { grid-template-columns: 36px minmax(0, 1fr); gap: 9px; padding: 12px; border-radius: 14px; }
+  .planning-tool-card, .sharing-tool, .google-tool { grid-template-columns: 36px minmax(0, 1fr); gap: 9px; padding: 12px; border-radius: 14px; }
   .planning-tool-icon { width: 35px; height: 35px; border-radius: 11px; }
   .planning-tool-icon .icon { width: 18px; height: 18px; }
   .planning-tool-card strong { font-size: 12px; }
   .planning-tool-card p { font-size: 10px; }
   .reminder-tool > button, .sharing-actions { grid-column: 2; justify-content: flex-start; }
   .sharing-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .google-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .google-actions button { min-width: 0; padding-inline: 8px; font-size: 10px; white-space: normal; }
   .sharing-actions button, .reminder-tool button { min-width: 0; min-height: 40px; white-space: normal; font-size: 10px; }
   .planning-layout { grid-template-columns: minmax(0, 1fr); gap: 9px; }
   .calendar-panel, .agenda-panel { padding: 14px; }

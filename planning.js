@@ -83,6 +83,7 @@
     }
     return result;
   }
+  app.fixedOccurrences = fixedOccurrences;
 
   function updateHomeBudget() {
     const total = monthlyTotal();

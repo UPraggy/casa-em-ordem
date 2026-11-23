@@ -28,9 +28,19 @@ O catálogo inicial contém 41 produtos, todos com estoque inicial zero, além d
 
 ## Dados e compartilhamento
 
-Os dados ficam no `localStorage` do navegador, na chave `casa-em-ordem`. Isso inclui anotações; elas continuam neste navegador até você usar **Compartilhar tudo** e importar o arquivo em outro aparelho. O site ainda não tem login, banco de dados nem sincronização em tempo real entre pessoas. A importação substitui os dados locais após confirmação e baixa um backup local antes da troca quando há conteúdo salvo. Para evitar edições concorrentes, combinem quem compartilha a versão mais recente.
+Os dados ficam no `localStorage` do navegador, na chave `casa-em-ordem`. Depois de conectar o Google na seção **Organização**, o app também salva uma cópia privada no `appDataFolder` do Google Drive. Ao conectar outro aparelho com a mesma conta Google, escolha carregar os dados do Drive. Alterações feitas enquanto a sessão Google estiver ativa são enviadas ao Drive; abra/atualize o site e conecte a mesma conta nos demais aparelhos para carregar a cópia atual. Esse modo usa uma cópia única: edições simultâneas em aparelhos diferentes podem sobrescrever a versão mais recente. Contas Google diferentes não compartilham essa cópia. A exportação **Compartilhar tudo** continua disponível para transferência manual.
 
-As imagens anexadas são armazenadas localmente e entram na exportação completa. Fotos grandes podem consumir o limite de armazenamento do navegador. As notificações do navegador funcionam enquanto o site está aberto; o arquivo `.ics` exportado pode ser importado no calendário do celular para receber lembretes com o site fechado. A sincronização direta com Google Agenda e alertas por e-mail para vários destinatários dependem de um backend autenticado e ainda precisam ser configurados; não são disponibilizados por um site estático do GitHub Pages sozinho.
+Fotos anexadas entram na cópia sincronizada com o Drive e na exportação completa, mas fotos grandes podem consumir armazenamento e levar mais tempo para enviar. Na seção **Organização**, Google Agenda pode receber os compromissos e contas recorrentes do próximo ano; edições e exclusões são aplicadas na sincronização seguinte. Alertas por e-mail do Gmail aceitam vários destinatários e são verificados enquanto a página está aberta e a autorização Google continua válida. Eles não rodam com o site fechado. Exporte o calendário `.ics` para receber lembretes pelo calendário do celular mesmo quando o site estiver fechado.
+
+### Configuração do Google
+
+1. No Google Cloud Console, crie um projeto e ative **Google Calendar API**, **Gmail API** e **Google Drive API**.
+2. Configure a tela de consentimento OAuth, inclua a conta Google como usuária de teste se o app ficar em modo de teste, e crie um **OAuth Client ID** do tipo **Aplicativo da Web**.
+3. Em **Origens JavaScript autorizadas**, cadastre `https://casa.rafaelmr.com.br`.
+4. Cole o Client ID na seção **Google Agenda e e-mail** do site, salve, informe os destinatários e toque em **Conectar Google**.
+5. Autorize o acesso e use **Sincronizar agenda**. Envie o e-mail de teste antes de depender dos avisos.
+
+O site não pede nem armazena a senha Google. O token de acesso fica apenas na memória daquela página e expira; reconecte quando o site pedir. O Client ID fica salvo localmente nesse navegador; a lista de destinatários é incluída na cópia privada do Drive para acompanhar os dados da casa. A autorização de Gmail é sensível e contas publicadas para uso geral podem exigir verificação do Google. Os dados no Drive ficam vinculados à conta que autorizou e não são automaticamente compartilhados com outras contas Google.
 
 O assistente envia o pedido e apenas os campos necessários à resposta para o OpenRouter. Não envia fotos. A chave da API fica no navegador e não é incluída nos arquivos de compartilhamento. Cada aparelho pode precisar configurar sua própria chave.
 

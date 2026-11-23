@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="mobile.css" />
   <link rel="stylesheet" href="design.css?v=20261123a" />
   <link rel="stylesheet" href="assistant.css" />
-  <link rel="stylesheet" href="planning.css?v=20261123a" />
+  <link rel="stylesheet" href="planning.css?v=20261123b" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 <!-- Lucide icons, ISC license: https://github.com/lucide-icons/lucide -->
@@ -183,6 +184,7 @@
         <div class="page-heading"><div><p class="eyebrow">ESCOLA, CASA E PLANOS</p><h1>Organização</h1><p class="muted">Compromissos, calendário e listas em um só lugar.</p></div><div class="heading-actions"><button class="outline-btn" id="calendar-export"><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg>Exportar calendário</button><button class="primary" id="add-event"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Agendar compromisso</button></div></div>
         <div class="planning-tools">
           <section class="planning-tool-card reminder-tool"><span class="planning-tool-icon"><svg class="icon" aria-hidden="true"><use href="#icon-bell"/></svg></span><div><strong id="reminder-title">Lembretes de compromissos</strong><p id="reminder-help">Avisos do navegador funcionam enquanto o site estiver aberto; exporte para receber pelo calendário do celular.</p></div><button class="outline-btn" id="notifications-toggle" type="button">Ativar avisos</button></section>
+          <section class="planning-tool-card google-tool"><span class="planning-tool-icon"><svg class="icon" aria-hidden="true"><use href="#icon-calendar-days"/></svg></span><div class="google-tool-content"><strong>Google Agenda e e-mail</strong><p>Conecte sua conta Google. A autorização é feita pelo Google; o site não recebe sua senha. Os alertas automáticos por e-mail funcionam enquanto esta página estiver aberta.</p><label>Client ID OAuth do Google<input id="google-client-id" type="text" autocomplete="off" placeholder="…apps.googleusercontent.com"></label><label>Enviar alertas para <span class="optional">(separe os e-mails por vírgula)</span><input id="google-recipients" type="text" inputmode="email" autocomplete="email" placeholder="voce@email.com, outra pessoa@email.com"></label><div id="google-status" class="google-status" role="status">Não conectado</div><div class="google-actions"><button class="outline-btn" id="google-save" type="button">Salvar configuração</button><button class="primary" id="google-connect" type="button">Conectar Google</button><button class="outline-btn" id="google-sync" type="button" disabled>Sincronizar agenda</button><button class="outline-btn" id="google-test-email" type="button" disabled>Enviar e-mail de teste</button><button class="outline-btn" id="google-disconnect" type="button" hidden>Desconectar</button></div></div></section>
           <section class="planning-tool-card sharing-tool"><span class="planning-tool-icon"><svg class="icon" aria-hidden="true"><use href="#icon-share-2"/></svg></span><div><strong>Compartilhar a casa</strong><p>Envie listas, estoque, agenda, planos e fotos. A outra pessoa importa o arquivo para atualizar os dados no aparelho dela.</p></div><div class="sharing-actions"><button class="outline-btn" id="share-house" type="button">Compartilhar tudo</button><button class="outline-btn" id="import-house-button" type="button">Importar atualização</button><input id="import-house-file" type="file" accept=".json,application/json" hidden></div></section>
         </div>
         <div class="planning-layout">
@@ -256,9 +258,10 @@
 
   <div class="modal-backdrop" id="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><button class="modal-close" id="modal-close" aria-label="Fechar"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg></button><p class="eyebrow" id="modal-eyebrow">NOVO ITEM</p><h2 id="modal-title">Adicionar ao estoque</h2><p class="muted" id="modal-subtitle">Preencha só o essencial. Você pode completar depois.</p><form id="item-form"><div class="form-grid"><div class="photo-field"><label class="photo-drop"><input type="file" id="item-photo" accept="image/*" /><span id="photo-preview"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg><small>Adicionar foto</small></span></label><button type="button" id="photo-remove" class="photo-remove" hidden>Remover foto</button></div><div class="form-fields"><label>Nome do item<input required id="item-name" list="existing-item-names" placeholder="Ex.: Leite integral" /><datalist id="existing-item-names"></datalist></label><label>Grupo<select id="item-group"><option>Sacola</option><option>Supermercado</option><option>Açougue</option><option>Limpeza</option><option>Primeiros socorros</option><option>Outro</option></select></label></div></div><div class="form-grid three"><label>Preço unitário<input id="item-price" type="number" min="0" step="0.01" placeholder="0,00" /></label><label><span id="item-qty-label">Quantidade em estoque</span><input id="item-qty" type="number" min="0" step="1" value="1" /></label><label>Estoque mínimo<input id="item-min" type="number" min="0" step="1" value="1" /></label></div><label>Data de validade <span class="optional">(opcional)</span><input id="item-expiry" type="date" /></label><div class="modal-actions"><button type="button" class="outline-btn" id="modal-cancel">Cancelar</button><button class="primary" type="submit">Salvar item</button></div></form></div></div>
   <div class="toast" id="toast"></div>
-  <script src="app.js?v=20261123a"></script>
+  <script src="app.js?v=20261123b"></script>
   <script src="assistant.js?v=20261111"></script>
-  <script src="planning.js?v=20261111d"></script>
+  <script src="planning.js?v=20261123b"></script>
+  <script src="google-integration.js?v=20261123a"></script>
   <script src="notes.js?v=20261123a"></script>
 </body>
 </html>

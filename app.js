@@ -8,7 +8,7 @@ const freshState=()=>({version:2,items:seed.map(i=>({...i,qty:0})),expenses:[],g
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const icon=(name,extra='')=>`<svg class="icon ${extra}" aria-hidden="true" focusable="false"><use href="#icon-${name}"></use></svg>`;
 const money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n||0);
-const save=()=>{localStorage.setItem('casa-em-ordem',JSON.stringify(state));renderAll()};
+const save=()=>{localStorage.setItem('casa-em-ordem',JSON.stringify(state));renderAll();document.dispatchEvent(new CustomEvent('casa:state-saved'))};
 const todayAtNoon=()=>{const d=new Date();d.setHours(12,0,0,0);return d};
 const daysTo=d=>d?Math.ceil((new Date(d+'T12:00:00')-todayAtNoon())/86400000):9999;
 const low=i=>i.qty<=i.min;

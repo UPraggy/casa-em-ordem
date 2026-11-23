@@ -35,6 +35,8 @@ O limite mensal pode ser alterado em **Ajustar teto mensal**. Cada compromisso p
 
 Na aba **Agenda**, use **Agendar compromisso** para criar eventos de escola, saúde, casa ou planos. É possível anexar ou remover uma foto, incluir detalhes e lista de itens, marcar a tarefa como feita, editar ou apagar. A busca e os filtros ajudam a localizar os compromissos.
 
+Em **Google Agenda e e-mail**, configure um Client ID OAuth do Google Cloud, cadastre os destinatários separados por vírgula e conecte a conta. Use **Sincronizar agenda** para enviar ou atualizar compromissos e contas recorrentes no Google Agenda. **Enviar e-mail de teste** verifica os destinatários. Os e-mails automáticos precisam que a página fique aberta e conectada. O mesmo painel sincroniza os dados da casa com uma cópia privada no Google Drive: nos outros celulares, conecte a mesma conta e escolha carregar a cópia existente. Contas diferentes e edições concorrentes não são mescladas.
+
 Toque em um dia do calendário para ver os próximos compromissos a partir daquela data; use as setas para trocar o mês. Listas vinculadas ao evento aceitam novos itens, marcação e exclusão.
 
 **Ativar avisos** pede permissão ao navegador e verifica lembretes enquanto a página está aberta. Para receber avisos com o site fechado, use **Exportar calendário** e importe o arquivo `.ics` no calendário do celular. O sistema e as permissões desse calendário controlam os avisos em segundo plano.
